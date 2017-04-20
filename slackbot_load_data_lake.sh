@@ -11,7 +11,7 @@ cd ~/slackbot_staging
 
 # get medicare files from s3 and unzip
 wget https://s3.amazonaws.com/ucbmids205-slackbot-static/static_data.zip
-unzip static_data.zip .
+unzip static_data.zip
 
 # remove first line of files and rename
 tail -n +3 Active_Business_Locations.csv > businesses.csv
