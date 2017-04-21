@@ -46,45 +46,45 @@ LOCATION '/user/w205/slackbot_static/craigslist_scrape_data';
 -- ON craigslist_data_tmp.posting_id = craigslist_rentals.posting_id
 -- WHERE craigslist_rentals.posting_id IS NULL;
 --
--- INSERT INTO craigslist_rentals
--- SELECT DISTINCT * FROM craigslist_rentals
--- UNION
--- SELECT DISTINCT * FROM craigslist_data_tmp;
-
-
 INSERT INTO craigslist_rentals
-SELECT
-craigslist_rentals.posted_date,
-craigslist_rentals.geotag,
-craigslist_rentals.has_image,
-craigslist_rentals.has_map,
-craigslist_rentals.posting_id,
-craigslist_rentals.name,
-craigslist_rentals.price,
-craigslist_rentals.url,
-craigslist_rentals.location
-FROM (
-  SELECT
-  craigslist_rentals.posted_date,
-  craigslist_rentals.geotag,
-  craigslist_rentals.has_image,
-  craigslist_rentals.has_map,
-  craigslist_rentals.posting_id,
-  craigslist_rentals.name,
-  craigslist_rentals.price,
-  craigslist_rentals.url,
-  craigslist_rentals.location
-  FROM craigslist_rentals
-  UNION ALL
-  SELECT
-  craigslist_data_tmp.posted_date,
-  craigslist_data_tmp.geotag,
-  craigslist_data_tmp.has_image,
-  craigslist_data_tmp.has_map,
-  craigslist_data_tmp.posting_id,
-  craigslist_data_tmp.name,
-  craigslist_data_tmp.price,
-  craigslist_data_tmp.url,
-  craigslist_data_tmp.location
-  FROM craigslist_data_tmp
-) craigslist_rentals;
+SELECT DISTINCT * FROM craigslist_rentals
+UNION ALL
+SELECT DISTINCT * FROM craigslist_data_tmp;
+
+
+-- INSERT INTO craigslist_rentals
+-- SELECT
+-- craigslist_rentals.posted_date,
+-- craigslist_rentals.geotag,
+-- craigslist_rentals.has_image,
+-- craigslist_rentals.has_map,
+-- craigslist_rentals.posting_id,
+-- craigslist_rentals.name,
+-- craigslist_rentals.price,
+-- craigslist_rentals.url,
+-- craigslist_rentals.location
+-- FROM (
+--   SELECT
+--   craigslist_rentals.posted_date,
+--   craigslist_rentals.geotag,
+--   craigslist_rentals.has_image,
+--   craigslist_rentals.has_map,
+--   craigslist_rentals.posting_id,
+--   craigslist_rentals.name,
+--   craigslist_rentals.price,
+--   craigslist_rentals.url,
+--   craigslist_rentals.location
+--   FROM craigslist_rentals
+--   UNION ALL
+--   SELECT
+--   craigslist_data_tmp.posted_date,
+--   craigslist_data_tmp.geotag,
+--   craigslist_data_tmp.has_image,
+--   craigslist_data_tmp.has_map,
+--   craigslist_data_tmp.posting_id,
+--   craigslist_data_tmp.name,
+--   craigslist_data_tmp.price,
+--   craigslist_data_tmp.url,
+--   craigslist_data_tmp.location
+--   FROM craigslist_data_tmp
+-- ) craigslist_rentals;
