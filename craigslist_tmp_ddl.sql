@@ -2,7 +2,7 @@ DROP TABLE craigslist_data_tmp;
 
 CREATE EXTERNAL TABLE craigslist_data_tmp
 (
-datetime date,
+posted_date date,
 geotag string,
 has_image string,
 has_map string,

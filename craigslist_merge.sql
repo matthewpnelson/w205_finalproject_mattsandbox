@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS craigslist_rentals
 (
-datetime date,
+posted_date date,
 geotag string,
 has_image string,
 has_map string,
@@ -19,8 +19,17 @@ WITH SERDEPROPERTIES (
 STORED AS TEXTFILE
 LOCATION '/user/w205/slackbot_static/craigslist_scrape_data';
 
-INSERT INTO craigslist_rentals
-SELECT DISTINCT * FROM craigslist_data_tmp
+INSERT INTO craigslist_rentals(posted_date, geotag, has_image, has_map, posting_id, name, price, url, location)
+SELECT DISTINCT craigslist_data_tmp.posted_date,
+craigslist_data_tmp.geotag,
+craigslist_data_tmp.has_image,
+craigslist_data_tmp.has_map,
+craigslist_data_tmp.posting_id,
+craigslist_data_tmp.name,
+craigslist_data_tmp.price,
+craigslist_data_tmp.url,
+craigslist_data_tmp.location
+FROM craigslist_data_tmp
 LEFT JOIN craigslist_rentals
 ON craigslist_data_tmp.posting_id = craigslist_rentals.posting_id
 WHERE craigslist_rentals.posting_id IS NULL;
