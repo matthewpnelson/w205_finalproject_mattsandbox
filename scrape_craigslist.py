@@ -15,7 +15,7 @@ def scrape_craigslist(max_rent= None, min_rent = None, cat = 'apa'):
 
     results = cl.get_results(geotagged=True, limit=50) #do we need to set a reasonable limit?
 
-    with open('/home/w205/craigslist_scrape_tmp/scrape_temp.csv', 'w') as f:
+    with open('/home/w205/craigslist_scrape_tmp/scrape_temp.csv', 'wt') as f:
         for result in results: # had to use a '>' as a delimiter so the geotag doesn't get split up
             csv_line = str(result['datetime']) + '>' + \
                 str(result['geotag']) + '>' + \
