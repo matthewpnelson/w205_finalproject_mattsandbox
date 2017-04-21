@@ -12,7 +12,7 @@ location string
 )
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
 WITH SERDEPROPERTIES (
-"separatorChar" = ",",
+"separatorChar" = ">",
 "quoteChar" = '"',
 "escapeChar" = '\\'
 )
@@ -20,4 +20,6 @@ STORED AS TEXTFILE
 LOCATION '/user/w205/slackbot_static/craigslist_scrape_data';
 
 CREATE TABLE craigslist_rentals AS
-SELECT * FROM craigslist_rentals UNION SELECT * FROM craigslist_data_tmp;
+SELECT * FROM craigslist_rentals
+UNION
+SELECT * FROM craigslist_data_tmp;
