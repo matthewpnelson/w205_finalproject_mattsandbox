@@ -38,7 +38,7 @@ street string,
 placement string,
 number_of_racks int,
 number_of_spaces int,
-last_edited_date date,
+last_edited_date string,
 geom string
 )
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
@@ -60,7 +60,7 @@ station_location string,
 location_name string,
 phase string,
 station_id string,
-last_edited_date date,
+last_edited_date string,
 geom string
 )
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
@@ -81,7 +81,7 @@ address string,
 city string,
 state string,
 eviction_notice_source_zipcode string,
-file_date date,
+file_date string,
 non_payment string,
 breach string,
 nuisance string,
@@ -110,7 +110,7 @@ CREATE EXTERNAL TABLE fires
 incident_number string,
 exposure_number string,
 address string,
-incident_date date,
+incident_date string,
 call_number string,
 alarm_datetime string,
 arrival_datetime string,
@@ -119,7 +119,7 @@ city string,
 zipcode string,
 battalion string,
 station_area string,
-box string,
+incident_box string,
 suppression_units string,
 suppression_personnel string,
 ems_units string,
@@ -155,7 +155,7 @@ no_flame_spread string,
 number_of_floors_with_minimum_damage string,
 number_of_floors_with_significant_damage string,
 number_of_floors_with_heavy_damage string,
-number_of_floors_with_extreme_damage string,,
+number_of_floors_with_extreme_damage string,
 detectors_present string,
 detector_type string,
 detector_operation string,
@@ -179,9 +179,9 @@ WITH SERDEPROPERTIES (
 STORED AS TEXTFILE
 LOCATION '/user/w205/slackbot_static/fires';
 
-DROP TABLE schools_map;
+DROP TABLE schools;
 
-CREATE EXTERNAL TABLE schools_map
+CREATE EXTERNAL TABLE schools
 (
 campus_name string,
 ccsf_entity string,
@@ -206,7 +206,7 @@ WITH SERDEPROPERTIES (
 "escapeChar" = '\\'
 )
 STORED AS TEXTFILE
-LOCATION '/user/w205/slackbot_static/schools_map';
+LOCATION '/user/w205/slackbot_static/schools';
 
 DROP TABLE parking;
 
@@ -265,8 +265,8 @@ incident_num string,
 category string,
 description string,
 day_of_week string,
-date date,
-time string,
+incident_date string,
+incident_time string,
 pd_district string,
 resolution string,
 address string,
