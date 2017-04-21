@@ -20,7 +20,11 @@ STORED AS TEXTFILE
 LOCATION '/user/w205/slackbot_static/craigslist_scrape_data';
 
 INSERT INTO craigslist_rentals
-SELECT DISTINCT * FROM craigslist_data_tmp;
+SELECT DISTINCT * FROM craigslist_data_tmp
+FROM craigslist_data_tmp A
+LEFT JOIN craigslist_rentals B
+ON craigslist_data_tmp.posting_id = craigslist_rentals.posting_id
+WHERE craigslist_rentals.posting_id IS NULL;
 
 -- CREATE TABLE craigslist_rentals AS
 -- SELECT * FROM craigslist_rentals
