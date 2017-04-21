@@ -19,7 +19,7 @@ WITH SERDEPROPERTIES (
 STORED AS TEXTFILE
 LOCATION '/user/w205/slackbot_static/craigslist_scrape_data';
 
-INSERT INTO craigslist_rentals(posted_date, geotag, has_image, has_map, posting_id, name, price, url, location)
+INSERT INTO craigslist_rentals
 SELECT DISTINCT craigslist_data_tmp.posted_date,
 craigslist_data_tmp.geotag,
 craigslist_data_tmp.has_image,

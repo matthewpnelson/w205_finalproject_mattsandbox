@@ -13,7 +13,8 @@ def scrape_craigslist(max_rent= None, min_rent = None, cat = 'apa'):
     # Scrape Craigslist
     cl = CraigslistHousing(site='sfbay', area='sfc', category= cat)
 
-    results = cl.get_results(sort_by='newest', geotagged=True, limit=20) #do we need to set a reasonable limit?
+    results = cl.get_results(geotagged=True, limit=20) #do we need to set a reasonable limit?
+# sort_by='newest',
 
     with open('/home/w205/craigslist_scrape_tmp/scrape_temp.csv', 'wt') as f:
         for result in results: # had to use a '>' as a delimiter so the geotag doesn't get split up
