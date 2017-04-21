@@ -1,5 +1,8 @@
 #!/bin/bash
 
+mkdir /home/w205/craigslist_scrape_tmp
+hdfs dfs -mkdir /user/w205/slackbot_static/craigslist_scrape_data
+
 # Delete tmp csv file on local machine & HDFS
 rm /home/w205/craigslist_scrape_tmp/scrape_temp.csv
 hdfs dfs -rm /user/w205/slackbot_static/craigslist_scrape_data/scrape_temp.csv
