@@ -4,7 +4,7 @@ datetime date,
 geotag string,
 has_image string,
 has_map string,
-posting_id string,
+posting_id string UNIQUE,
 name string,
 price int,
 url string,
@@ -19,7 +19,10 @@ WITH SERDEPROPERTIES (
 STORED AS TEXTFILE
 LOCATION '/user/w205/slackbot_static/craigslist_scrape_data';
 
-CREATE TABLE craigslist_rentals AS
-SELECT * FROM craigslist_rentals
-UNION
+INSERT INTO craigslist_rentals
 SELECT * FROM craigslist_data_tmp;
+
+-- CREATE TABLE craigslist_rentals AS
+-- SELECT * FROM craigslist_rentals
+-- UNION
+-- SELECT * FROM craigslist_data_tmp;
