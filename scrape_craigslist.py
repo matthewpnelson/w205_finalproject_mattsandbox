@@ -25,7 +25,7 @@ def scrape_craigslist(max_rent= None, min_rent = None, cat = 'apa'):
                 str(result['name']) + '>' + \
                 str(result['price']) + '>' + \
                 str(result['url']) + '>' + \
-                str(result['where'])
+                str(result['where']) + '\n'
             f.write(csv_line)
 
 scrape_craigslist()
