@@ -21,7 +21,6 @@ LOCATION '/user/w205/slackbot_static/craigslist_scrape_data';
 
 INSERT INTO craigslist_rentals
 SELECT DISTINCT * FROM craigslist_data_tmp
-FROM craigslist_data_tmp
 LEFT JOIN craigslist_rentals
 ON craigslist_data_tmp.posting_id = craigslist_rentals.posting_id
 WHERE craigslist_rentals.posting_id IS NULL;
