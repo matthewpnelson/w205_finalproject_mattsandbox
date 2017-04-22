@@ -12,29 +12,7 @@ density_of_offstreet_parking = "Low" # Low, Medium, High Density within Xkm (Sel
                     # density_of_trees_100m = "Low")
 
 
-## Spark Application - execute with spark-submit
 
-## Imports
-from pyspark import SparkContext, SparkConf
-from pyspark.sql import HiveContext
-#from pyspark.sql import SparkSession
-from pyspark.sql.types import *
-
-## Module Constants
-APP_NAME = "Static Evaluations"
-
-## Closure Functions
-
-## Main functionality
-
-if __name__ == "__main__":
-    # Configure Spark
-    conf = SparkConf().setAppName(APP_NAME)
-    conf = conf.setMaster("local[*]")
-    sc   = SparkContext(conf=conf)
-
-    # Execute Main functionality
-    main(sc)
 
 
 
@@ -129,3 +107,28 @@ def main(sc):
                         close_to_bike_parking = close_to_bike_parking,           # Care about close bike parking, Yes or No
                         density_of_offstreet_parking = density_of_offstreet_parking # Low, Medium, High Density within Xkm (Select Low if you don't care)))
                     )
+
+
+## Spark Application - execute with spark-submit
+
+## Imports
+from pyspark import SparkContext, SparkConf
+from pyspark.sql import HiveContext
+#from pyspark.sql import SparkSession
+from pyspark.sql.types import *
+
+## Module Constants
+APP_NAME = "Static Evaluations"
+
+## Closure Functions
+
+## Main functionality
+
+if __name__ == "__main__":
+    # Configure Spark
+    conf = SparkConf().setAppName(APP_NAME)
+    conf = conf.setMaster("local[*]")
+    sc   = SparkContext(conf=conf)
+
+    # Execute Main functionality
+    main(sc)
