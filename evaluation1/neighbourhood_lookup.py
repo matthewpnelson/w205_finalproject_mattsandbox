@@ -1,7 +1,7 @@
 # Neighbourhood Bounding Boxes for Neighbourhood Lookups
 
 # Function to Take a list of latlong polygons with associated neighbourhood names and turn into a dictionary with key = neighbourhood
-def import_NH_polygons(filename = 'SFFind_Neighborhoods.csv'):
+def import_NH_polygons(filename = '/home/w205/w205_finalproject_mattsandbox/evaluation1/SFFind_Neighborhoods.csv'):
     import csv
     with open(filename, 'rt') as fin:
         reader = csv.reader(fin, delimiter=',')
