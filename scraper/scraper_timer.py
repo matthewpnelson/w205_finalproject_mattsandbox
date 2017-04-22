@@ -3,7 +3,7 @@
 
 
 #from scraper import do_scrape
-import settings
+#import settings
 import time
 import sys
 import traceback
