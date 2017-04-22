@@ -1,9 +1,8 @@
-# Timer Script for Scraper
 #!/usr/bin/python
 
-
+# Timer Script for Scraper
 #from scraper import do_scrape
-#import settings
+import scraper_settings
 import time
 import sys
 import traceback
@@ -25,4 +24,4 @@ if __name__ == "__main__":
         else:
             #print("{}: Successfully finished scraping".format(time.ctime()))
             print("******SUCCESSFULLY FINISHED SCRAPE**********")
-        time.sleep(60*20) #Sleep Interval 20mins
+        time.sleep(scraper_settings.SLEEP_INTERVAL) #Sleep Interval
