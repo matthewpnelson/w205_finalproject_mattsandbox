@@ -57,6 +57,7 @@ def main(sc):
 
     # convert to dictionary
     bike_parking = map(lambda row: row.asDict(), bike_parking_table_df.collect())
+    print(bike_parking[0])
 
     #########################
     # Fake for now
@@ -99,7 +100,7 @@ def main(sc):
     check_rentals(results = rentals,
                         businesses_ranking = businesses_ranking,              # Input Dictionary in form {zipcode: Rank}
                         evictions_ranking = evictions_ranking,               # Input Dictionary in form {zipcode: Rank}
-                        bike_parking = bike_parking,
+                        bike_parking = bike_parking[0],
 
                         max_rent= max_rent,
                         min_rent = min_rent,

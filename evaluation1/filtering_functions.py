@@ -95,10 +95,10 @@ def points2distance(start,  end):
     Calculate distance (in kilometers) between two points given as (long, latt) pairs
     based on Haversine formula (http://en.wikipedia.org/wiki/Haversine_formula).
     """
-    end_latt = math.radians(end[0])
-    end_long = math.radians(end[1])
-    start_latt = math.radians(start[0])
-    start_long = math.radians(start[1])
+    end_latt = math.radians(float(end[0]))
+    end_long = math.radians(float(end[1]))
+    start_latt = math.radians(float(start[0]))
+    start_long = math.radians(float(start[1]))
 
     d_latt = end_latt - start_latt
     d_long = end_long - start_long
