@@ -41,6 +41,9 @@ def check_rentals(results,
         # assign geotag if it is provided in the rental ad
         if result['geotag'] is not None:
             geotag = result['geotag']
+            geotag = []
+            for each in result['geotag'][1:-1].strip().split(","):
+                geotag.append(each)
         else:
             continue #skip for now because there is no geotag
 
