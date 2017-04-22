@@ -112,7 +112,7 @@ def check_rentals(results,
         if close_to_bike_parking == "No":
             pass #skip this filter, user doesn't care
         else:
-            BP_close, BP_location, BP_distance = filtering_functions.close_to_bike_parking(geotag, bike_parking)
+            BP_close, BP_location, BP_distance = filtering_functions.close_to_bike_parking(geotag, bike_parking[0])
             if BP_close == False:
                 continue #doesn't meet user criteria, go on to next result
             else:
