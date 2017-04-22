@@ -7,7 +7,7 @@ min_rent = 2000
 min_rank_businesses = 1                 # 1 if you don't care about this, 10 if you really do
 min_rank_evictions = 1                  # 1 if you don't care about this, 10 if you really do
 close_to_bike_parking = "Yes",           # Care about close bike parking, Yes or No
-density_of_offstreet_parking = "Medium" # Low, Medium, High Density within Xkm (Select Low if you don't care)
+density_of_offstreet_parking = "Low" # Low, Medium, High Density within Xkm (Select Low if you don't care)
                     # density_of_SFPD_Incidents = "High",       # Low, Medium, High Density in 2016 (Select High if you don't care)
                     # density_of_trees_100m = "Low")
 
