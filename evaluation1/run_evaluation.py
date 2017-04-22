@@ -59,7 +59,9 @@ def main(sc):
     bike_parking_dict = map(lambda row: row.asDict(), bike_parking_table_df.collect())
     bike_parking = {}
     for entry in bike_parking_dict:
-        bike_parking[entry['location']] = entry['geom']
+        geo = (entry['geom'][1:-1].strip().split(","))
+        bike_parking[entry['location']] = geo
+# print(bike_parking)
     # {entry['location']:entry['geom'] for entry in bike_parking_dict} dictionary comprehension not working in Spark-submit?
 
     #########################
