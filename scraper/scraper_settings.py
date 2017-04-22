@@ -1,5 +1,10 @@
 import os
 
+# How long we should sleep between scrapes of Craigslist.
+# Too fast may get rate limited.
+# Too slow may miss listings.
+SLEEP_INTERVAL = 20 * 60 # 20 minutes
+
 ## Location preferences
 
 # The Craigslist site you want to search on.
