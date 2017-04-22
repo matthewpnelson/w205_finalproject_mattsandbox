@@ -57,7 +57,7 @@ def main(sc):
 
     # convert to dictionary
     bike_parking = map(lambda row: row.asDict(), bike_parking_table_df.collect())
-    print(bike_parking[0])
+    bike_parking = {each['location']:each['geom'] for each in bike_parking}
 
     #########################
     # Fake for now
