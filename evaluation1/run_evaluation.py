@@ -57,7 +57,7 @@ def main(sc):
 
     # convert to dictionary
     bike_parking = map(lambda row: row.asDict(), bike_parking_table_df.collect())
-    print(bike_parking)
+
     #########################
     # Fake for now
     businesses_ranking = {'94102': 1, '11111': 5, '94104': 10, '94105': 10 }
