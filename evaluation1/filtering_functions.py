@@ -116,7 +116,7 @@ def close_to_bike_parking(geotag, bike_parking_locations):
     MAX_BIKE_DIST = 20 # kilometers
 
     for spot, coords in bike_parking_locations.items():
-        dist = points2distance(coords,geotag)
+        dist = points2distance(tuple(coords),geotag)
         if (min_dist is None or dist < min_dist) and dist < MAX_BIKE_DIST:
             bike = spot
             near_bike = True
@@ -133,7 +133,7 @@ def parking_density(geotag, parking_locations):
 
     # Loop through Parking Locations and sum total available spots (within Max Distance of geotag) for both Private/Public
     for name, info in parking_locations.items():
-        dist = points2distance(info[2],geotag)
+        dist = points2distance(tuple(info[2]),geotag)
         if dist < MAX_PARK_DIST and info[0] == "Public":
             public_parking_count += info[1] # Assuming the Parking lot info has # of spots in the raw data
         elif dist < MAX_PARK_DIST and info[0] == "Private":
