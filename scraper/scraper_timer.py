@@ -12,7 +12,7 @@ import subprocess
 if __name__ == "__main__":
     while True:
         #print("{}: Starting scrape cycle".format(time.ctime()))
-        print("Start Scrape")
+        print("****************START SCRAPE******************")
         try:
             subprocess.call("./scrape_craigslist.sh", shell=True)
             #scrape_craigslist(max_rent= None, min_rent = None, cat = 'apa') # adjust?
@@ -24,5 +24,5 @@ if __name__ == "__main__":
             traceback.print_exc()
         else:
             #print("{}: Successfully finished scraping".format(time.ctime()))
-            print("Successfully Finished Scrape")
-        time.sleep(60) #Sleep Interval
+            print("******SUCCESSFULLY FINISHED SCRAPE**********")
+        time.sleep(60*20) #Sleep Interval 20mins
