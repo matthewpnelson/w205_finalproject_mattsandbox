@@ -115,6 +115,10 @@ def check_rentals(results,
 
         # BIKE PARKING (is bike parking within 20km of the rental? (huge window until we get actual locations loaded))
         if close_to_bike_parking == "No":
+            result["BP_close"] = "N/A"
+            result["BP_location"] = "N/A"
+            result["BP_distance"] = "N/A"
+
             pass #skip this filter, user doesn't care
         else:
             BP_close, BP_location, BP_distance = filtering_functions.close_to_bike_parking(geotag, bike_parking)
@@ -164,8 +168,8 @@ def check_rentals(results,
               "Listing Name: ", result["name"], "\n",
               "URL: ", result["url"], "\n",
               "Bike Parking (Close?, Location Name, Distance (km)): ",result["BP_close"], result["BP_location"], result["BP_distance"], "\n",
-              "Local Public Off-Street Parking Density, # of Spots: ", result["Public_Parking_Density"], result["Public_Parking_Spots"], "\n",
-              "Local Private Off-Street Parking Density, # of Spots: ",result["Private_Parking_Density"], result["Private_Parking_Spots"])
+            #   "Local Public Off-Street Parking Density, # of Spots: ", result["Public_Parking_Density"], result["Public_Parking_Spots"], "\n",
+            #   "Local Private Off-Street Parking Density, # of Spots: ",result["Private_Parking_Density"], result["Private_Parking_Spots"])
         print("****************************************")
         #printmd('**-------------------------------------------------**')
 
