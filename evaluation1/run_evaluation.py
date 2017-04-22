@@ -63,6 +63,8 @@ def main(sc):
             geo = []
             for each in entry['geom'][1:-1].strip().split(","):
                 geo.append(each)
+            if length(geo) != 2:
+                continue
             # geo = (entry['geom'][1:-1].strip().split(","))
             bike_parking[entry['location']] = geo
         except:

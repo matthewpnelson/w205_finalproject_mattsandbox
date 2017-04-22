@@ -44,6 +44,8 @@ def check_rentals(results,
             geotag = []
             for each in result['geotag'][1:-1].strip().split(","):
                 geotag.append(each)
+            if length(geo) != 2:
+                continue
         else:
             continue #skip for now because there is no geotag
 
