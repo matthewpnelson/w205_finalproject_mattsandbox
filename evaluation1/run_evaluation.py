@@ -17,7 +17,7 @@ density_of_offstreet_parking = "Low" # Low, Medium, High Density within Xkm (Sel
 # Initialize Spark Context & Select Relevent Data From Hive Tables
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import HiveContext
-from pyspark.sql import SparkSession
+#from pyspark.sql import SparkSession
 from pyspark.sql.types import *
 
 spark = SparkSession.builder.master("yarn").appName("my app").enableHiveSupport().getOrCreate()
