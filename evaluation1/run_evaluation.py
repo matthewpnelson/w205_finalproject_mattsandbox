@@ -62,7 +62,7 @@ def main(sc):
         try:
             geo = []
             for each in entry['geom'][1:-1].strip().split(","):
-                geo.append(float(each))
+                geo.append(each)
             # geo = (entry['geom'][1:-1].strip().split(","))
             bike_parking[entry['location']] = geo
         except:
