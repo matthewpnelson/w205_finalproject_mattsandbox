@@ -56,8 +56,8 @@ def main(sc):
     bike_parking_table_df = sqlContext.sql('SELECT location, geom FROM bike_parking')
 
     # convert to dictionary
-    bike_parking = map(lambda row: row.asDict(), bike_parking_table_df.collect())
-    bike_parking = {each['location']:each['geom'] for each in bike_parking}
+    bike_parking_dict = map(lambda row: row.asDict(), bike_parking_table_df.collect())
+    bike_parking = {each['location']:each['geom'] for each in bike_parking_dict}
 
     #########################
     # Fake for now
