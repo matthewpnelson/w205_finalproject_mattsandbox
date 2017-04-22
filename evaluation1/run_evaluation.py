@@ -99,6 +99,7 @@ def main(sc):
     check_rentals(results = rentals,
                         businesses_ranking = businesses_ranking,              # Input Dictionary in form {zipcode: Rank}
                         evictions_ranking = evictions_ranking,               # Input Dictionary in form {zipcode: Rank}
+                        bike_parking = bike_parking,
 
                         max_rent= max_rent,
                         min_rent = min_rent,

@@ -3,7 +3,7 @@ def check_rentals(results,
                     evictions_ranking,               # Input Dictionary in form {zipcode: Rank}
                     #schools_k9_ranking,               # Input Dictionary in form {zipcode: Rank}
                     #schools_hs_ranking,              # Input Dictionary in form {zipcode: Rank}
-
+                    bike_parking,
 
 
                     max_rent= None,
