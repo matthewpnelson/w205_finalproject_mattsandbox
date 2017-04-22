@@ -172,12 +172,12 @@ def check_rentals(results,
         SLACK_CHANNEL = evaluation_settings.SLACK_CHANNEL
 
         sc = SlackClient(SLACK_TOKEN)
-        desc = "Area: " + result["area"] +  "\n" +
-              "Price: " +  result["price"] +  "\n" +
-              "Listing Name: " +  result["name"] +  "\n" +
-              "URL: " +  result["url"] +  "\n" +
-              "Bike Parking (Close?, Location Name, Distance (km)): " + result["BP_close"] +  result["BP_location"] +  result["BP_distance"] +  "\n" +
-              "Local Public Off-Street Parking Density, # of Spots: " +  result["Public_Parking_Density"] +  result["Public_Parking_Spots"] +  "\n" +
+        desc = "Area: " + result["area"] +  "\n" + \
+              "Price: " +  result["price"] +  "\n" + \
+              "Listing Name: " +  result["name"] +  "\n" + \
+              "URL: " +  result["url"] +  "\n" + \
+              "Bike Parking (Close?, Location Name, Distance (km)): " + result["BP_close"] +  result["BP_location"] +  result["BP_distance"] +  "\n" + \
+              "Local Public Off-Street Parking Density, # of Spots: " +  result["Public_Parking_Density"] +  result["Public_Parking_Spots"] +  "\n" + \
               "Local Private Off-Street Parking Density, # of Spots: " + result["Private_Parking_Density"] +  result["Private_Parking_Spots"]
         # desc = "{0} | {1} | {2} | {3} | <{4}>".format(result["area"], result["price"], result["bart_dist"], result["name"], result["url"])
         sc.api_call(
