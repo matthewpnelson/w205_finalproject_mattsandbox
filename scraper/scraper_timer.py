@@ -2,7 +2,7 @@
 #!/usr/bin/python
 
 
-from scraper import do_scrape
+#from scraper import do_scrape
 import settings
 import time
 import sys
