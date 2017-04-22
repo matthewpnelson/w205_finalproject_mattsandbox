@@ -1,14 +1,14 @@
 import scraper_settings
 from slackclient import SlackClient
 
-def scrape_craigslist(max_rent= None, min_rent = None, cat = 'apa'):
+def scrape_craigslist():
 
     from craigslist import CraigslistHousing
 
     # Scrape Craigslist
     cl = CraigslistHousing(site=scraper_settings.CRAIGSLIST_SITE, area=scraper_settings.AREAS, category=scraper_settings.CRAIGSLIST_HOUSING_SECTION)
 
-    results = cl.get_results( geotagged=True, limit=100) #do we need to set a reasonable limit?
+    results = cl.get_results(geotagged=True, limit=100) #do we need to set a reasonable limit?
 #sort_by='newest',
 
     # Save to CSV File
