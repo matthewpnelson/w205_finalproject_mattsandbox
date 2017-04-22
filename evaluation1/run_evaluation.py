@@ -57,11 +57,10 @@ def main(sc):
 
     # convert to dictionary
     bike_parking_dict = map(lambda row: row.asDict(), bike_parking_table_df.collect())
-    # print(bike_parking_dict)
     bike_parking = {}
     for entry in bike_parking_dict:
         bike_parking[entry['location']] = entry['geom']
-    # {entry['location']:entry['geom'] for entry in bike_parking_dict}
+    # {entry['location']:entry['geom'] for entry in bike_parking_dict} dictionary comprehension not working in Spark-submit?
 
     #########################
     # Fake for now
@@ -104,7 +103,7 @@ def main(sc):
     check_rentals(results = rentals,
                         businesses_ranking = businesses_ranking,              # Input Dictionary in form {zipcode: Rank}
                         evictions_ranking = evictions_ranking,               # Input Dictionary in form {zipcode: Rank}
-                        bike_parking = bike_parking[0],
+                        bike_parking = bike_parking,
 
                         max_rent= max_rent,
                         min_rent = min_rent,
