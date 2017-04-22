@@ -164,17 +164,25 @@ def check_rentals(results,
         print("****************************************")
         #printmd('**-------------------------------------------------**')
 
-        # ### POST TO SLACK
-        # from slackclient import SlackClient
-        #
-        # SLACK_TOKEN = "ENTER_TOKEN_HERE"
-        # SLACK_CHANNEL = "#housing"
-        #
-        # sc = SlackClient(SLACK_TOKEN)
+        ### POST TO SLACK
+        from slackclient import SlackClient
+        import evaluation_settings
+
+        SLACK_TOKEN = evaluation_settings.SLACK_TOKEN
+        SLACK_CHANNEL = evaluation_settings.SLACK_CHANNEL
+
+        sc = SlackClient(SLACK_TOKEN)
+        desc = "Area: " + result["area"] +  "\n" +
+              "Price: " +  result["price"] +  "\n" +
+              "Listing Name: " +  result["name"] +  "\n" +
+              "URL: " +  result["url"] +  "\n" +
+              "Bike Parking (Close?, Location Name, Distance (km)): " + result["BP_close"] +  result["BP_location"] +  result["BP_distance"] +  "\n" +
+              "Local Public Off-Street Parking Density, # of Spots: " +  result["Public_Parking_Density"] +  result["Public_Parking_Spots"] +  "\n" +
+              "Local Private Off-Street Parking Density, # of Spots: " + result["Private_Parking_Density"] +  result["Private_Parking_Spots"]
         # desc = "{0} | {1} | {2} | {3} | <{4}>".format(result["area"], result["price"], result["bart_dist"], result["name"], result["url"])
-        # sc.api_call(
-        #     "chat.postMessage", channel=SLACK_CHANNEL, text=desc,
-        #     username='pybot', icon_emoji=':robot_face:'
-        # )
+        sc.api_call(
+            "chat.postMessage", channel=SLACK_CHANNEL, text=desc,
+            username='pybot', icon_emoji=':robot_face:'
+        )
 
     #return valid_rentals
