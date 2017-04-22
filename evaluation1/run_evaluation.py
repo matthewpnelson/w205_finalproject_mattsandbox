@@ -59,11 +59,14 @@ def main(sc):
     bike_parking_dict = map(lambda row: row.asDict(), bike_parking_table_df.collect())
     bike_parking = {}
     for entry in bike_parking_dict:
-        geo = []
-        for each in entry['geom'][1:-1].strip().split(","):
-            geo.append(float(each))
-        # geo = (entry['geom'][1:-1].strip().split(","))
-        bike_parking[entry['location']] = geo
+        try:
+            geo = []
+            for each in entry['geom'][1:-1].strip().split(","):
+                geo.append(float(each))
+            # geo = (entry['geom'][1:-1].strip().split(","))
+            bike_parking[entry['location']] = geo
+        except:
+            continue
 # print(bike_parking)
     # {entry['location']:entry['geom'] for entry in bike_parking_dict} dictionary comprehension not working in Spark-submit?
 
