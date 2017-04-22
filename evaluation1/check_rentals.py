@@ -48,8 +48,8 @@ def check_rentals(results,
         tentative_rental.append(result)
 
         ### Get Approximate Neighbourhood by Geotag
-        if result["where"] != None:
-            result["area"] = result["where"]
+        if result["location"] != None:
+            result["area"] = result["location"]
         else:
             result["area"] = neighbourhood_lookup.neighbourhood_lookup(geotag)
 
