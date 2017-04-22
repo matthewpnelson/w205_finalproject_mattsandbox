@@ -94,12 +94,10 @@ demolition string,
 capital_improvement string,
 substantial_rehab string
 )
-ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
-WITH SERDEPROPERTIES (
-"separatorChar" = ",",
-"quoteChar" = '"',
-"escapeChar" = '\\'
-)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+FIELDS ESCAPED BY '\\'
+LINES TERMINATED BY '\n'
 STORED AS TEXTFILE
 LOCATION '/user/w205/slackbot_static/evictions';
 
