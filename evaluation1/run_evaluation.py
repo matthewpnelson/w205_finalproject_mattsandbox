@@ -4,10 +4,10 @@
 # inputs from user
 max_rent= 6000
 min_rent = 2000
-min_rank_businesses = 2                 # 1 if you don't care about this, 10 if you really do
-min_rank_evictions = 2                  # 1 if you don't care about this, 10 if you really do
+min_rank_businesses = 1                 # 1 if you don't care about this, 10 if you really do
+min_rank_evictions = 1                  # 1 if you don't care about this, 10 if you really do
 close_to_bike_parking = "Yes",           # Care about close bike parking, Yes or No
-density_of_offstreet_parking = "Low" # Low, Medium, High Density within Xkm (Select Low if you don't care)
+density_of_offstreet_parking = "Medium" # Low, Medium, High Density within Xkm (Select Low if you don't care)
                     # density_of_SFPD_Incidents = "High",       # Low, Medium, High Density in 2016 (Select High if you don't care)
                     # density_of_trees_100m = "Low")
 
@@ -48,32 +48,32 @@ def main(sc):
     # Need in Form: businesses_ranking = {'94102': 1, '11111': 5, '94104': 10, '94105': 10 }
 
     # Select Businesses Ranking from Hive Table
-    #businesses_ranking_df = sqlContext.sql('SELECT * FROM businesses_ranking')
+    # businesses_ranking_df = sqlContext.sql('SELECT * FROM businesses_ranking')
     # convert to dictionary
-    #businesses_ranking = map(lambda row: row.asDict(), businesses_ranking_df.collect())
+    # businesses_ranking = map(lambda row: row.asDict(), businesses_ranking_df.collect())
 
     # Select Bike Parking from Hive Table
-    #bike_parking_table_df = sqlContext.sql('SELECT location, geom FROM bike_parking')
+    bike_parking_table_df = sqlContext.sql('SELECT location, geom FROM bike_parking')
 
     # convert to dictionary
-    #bike_parking = map(lambda row: row.asDict(), bike_parking_table_df.collect())
+    bike_parking = map(lambda row: row.asDict(), bike_parking_table_df.collect())
 
     #########################
     # Fake for now
     businesses_ranking = {'94102': 1, '11111': 5, '94104': 10, '94105': 10 }
     evictions_ranking = {'94102': 7, '11111': 4, '94104': 10, '94105': 9 }
 
-    bike_parking = {'location 1': (37.7606289177, -122.410647009),
-                    'location 2': (37.7855355791102, -122.411302813025),
-                    'location 3': (37.7759676911831, -122.441396661871),
-                    'location 4': (37.7518243814, -122.426627114),
-                    'location 5': (37.75182438, -122.4266271)}
-
-    bike_share =   {'location 1': (37.7606289177, -122.410647009),
-                    'location 2': (37.7855355791102, -122.411302813025),
-                    'location 3': (37.7759676911831, -122.441396661871),
-                    'location 4': (37.7518243814, -122.426627114),
-                    'location 5': (37.75182438, -122.4266271)}
+    # bike_parking = {'location 1': (37.7606289177, -122.410647009),
+    #                 'location 2': (37.7855355791102, -122.411302813025),
+    #                 'location 3': (37.7759676911831, -122.441396661871),
+    #                 'location 4': (37.7518243814, -122.426627114),
+    #                 'location 5': (37.75182438, -122.4266271)}
+    #
+    # bike_share =   {'location 1': (37.7606289177, -122.410647009),
+    #                 'location 2': (37.7855355791102, -122.411302813025),
+    #                 'location 3': (37.7759676911831, -122.441396661871),
+    #                 'location 4': (37.7518243814, -122.426627114),
+    #                 'location 5': (37.75182438, -122.4266271)}
 
     off_street_parking =      {'location 1': ["Private", 13, (37.7606289177, -122.410647009)],
                     'location 2': ["Private", 15, (37.7855355791102, -122.411302813025)],
@@ -81,17 +81,17 @@ def main(sc):
                     'location 4': ["Private", 27, (37.7518243814, -122.426627114)],
                     'location 5': ["Private", 60, (37.75182438, -122.4266271)]}
 
-    SFPD =      {'location 1': (37.7606289177, -122.410647009),
-                    'location 2': (37.7855355791102, -122.411302813025),
-                    'location 3': (37.7759676911831, -122.441396661871),
-                    'location 4': (37.7518243814, -122.426627114),
-                    'location 5': (37.75182438, -122.4266271)}
-
-    trees =      {'location 1': (37.7606289177, -122.410647009),
-                    'location 2': (37.7855355791102, -122.411302813025),
-                    'location 3': (37.7759676911831, -122.441396661871),
-                    'location 4': (37.7518243814, -122.426627114),
-                    'location 5': (37.75182438, -122.4266271)}
+    # SFPD =      {'location 1': (37.7606289177, -122.410647009),
+    #                 'location 2': (37.7855355791102, -122.411302813025),
+    #                 'location 3': (37.7759676911831, -122.441396661871),
+    #                 'location 4': (37.7518243814, -122.426627114),
+    #                 'location 5': (37.75182438, -122.4266271)}
+    #
+    # trees =      {'location 1': (37.7606289177, -122.410647009),
+    #                 'location 2': (37.7855355791102, -122.411302813025),
+    #                 'location 3': (37.7759676911831, -122.441396661871),
+    #                 'location 4': (37.7518243814, -122.426627114),
+    #                 'location 5': (37.75182438, -122.4266271)}
 
 
     from check_rentals import check_rentals
