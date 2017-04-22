@@ -6,7 +6,7 @@ def scrape_craigslist():
     from craigslist import CraigslistHousing
 
     # Scrape Craigslist
-    cl = CraigslistHousing(site=scraper_settings.CRAIGSLIST_SITE, area=scraper_settings.AREAS, category=scraper_settings.CRAIGSLIST_HOUSING_SECTION)
+    cl = CraigslistHousing(site=scraper_settings.CRAIGSLIST_SITE, area=scraper_settings.AREAS, category='apa')
 
     results = cl.get_results(geotagged=True, limit=100) #do we need to set a reasonable limit?
 #sort_by='newest',
