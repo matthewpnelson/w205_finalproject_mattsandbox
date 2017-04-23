@@ -155,8 +155,8 @@ def parking_density(geotag, parking_locations):
     public_parking_count = 0
     private_parking_count = 0
     MAX_PARK_DIST = 1 # kilometers
-    low_density_threshold = 10
-    med_density_threshold = 50
+    low_density_threshold = 100
+    med_density_threshold = 500
 
     # Loop through Parking Locations and sum total available spots (within Max Distance of geotag) for both Private/Public
     for name, info in parking_locations.items():
@@ -214,6 +214,32 @@ def school_density(geotag, school_locations):
         school_density = "High School Density"
 
     return school_density, school_count
+
+def sfpd_density(geotag, sfpd_locations):
+
+    sfpd_count = 0
+    MAX_SFPD_DIST = 1 # kilometers
+    low_density_threshold = 200
+    med_density_threshold = 1000
+
+    # Loop through sfpd Locations and sum total available spots (within Max Distance of geotag) for both Private/Public
+    for name, coords in sfpd_locations.items():
+        dist = points2distance(coords,geotag)
+        if dist < MAX_SFPD_DIST:
+            sfpd_count += 1
+        else:
+            continue
+
+    # Characterize Public sfpd Density
+    sfpd_density = None
+    if sfpd_count > 0 and sfpd_count <= low_density_threshold:
+        sfpd_density = "Low SFPD Density"
+    elif sfpd_count > low_density_threshold and sfpd_count <= med_density_threshold:
+        sfpd_density = "Medium SFPD Density"
+    elif sfpd_count > med_density_threshold:
+        sfpd_density = "High SFPD Density"
+
+    return sfpd_density, sfpd_count
 
 
 def tree_density(geotag, tree_locations):

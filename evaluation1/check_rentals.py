@@ -9,6 +9,11 @@ def check_rentals(results,
                     tree_locations,
                     parking,
                     parks_count,
+                    sfpd_locations,
+                    fires_count,
+                    bars_count,
+                    restaurants_count,
+                    businesses_count,
 
 
                     max_rent= None,
@@ -53,7 +58,10 @@ def check_rentals(results,
             geotag_raw = result['geotag']
             geotag = []
             for each in str(result['geotag'])[1:-1].strip().split(","):
-                geotag.append(float(each))
+                try:
+                    geotag.append(float(each))
+                except:
+                    continue
             if len(geotag) != 2:
                 continue
         else:
@@ -102,19 +110,19 @@ def check_rentals(results,
         ## ZIPCODE BASED FILTERS
         #-----------------------------------------------------------------------------------------------
 
-        # # OF BUSINESSES
-        if min_rank_businesses == 1:
-            pass
-        else:
-            if result['zipcode'] not in filtering_functions.check_businesses(min_rank_businesses, businesses_ranking):
-                continue #doesn't meet user criteria, go on to next result
-
-        # NEARBY SCHOOLS
-        if min_rank_evictions == 1:
-            pass
-        else:
-            if result['zipcode'] not in filtering_functions.check_evictions(min_rank_evictions, evictions_ranking):
-                continue #doesn't meet user criteria, go on to next result
+        # # # OF BUSINESSES
+        # if min_rank_businesses == 1:
+        #     pass
+        # else:
+        #     if result['zipcode'] not in filtering_functions.check_businesses(min_rank_businesses, businesses_ranking):
+        #         continue #doesn't meet user criteria, go on to next result
+        #
+        # # NEARBY SCHOOLS
+        # if min_rank_evictions == 1:
+        #     pass
+        # else:
+        #     if result['zipcode'] not in filtering_functions.check_evictions(min_rank_evictions, evictions_ranking):
+        #         continue #doesn't meet user criteria, go on to next result
 
         #-----------------------------------------------------------------------------------------------
         ## OTHER INFORMATION ON RENTAL
@@ -126,7 +134,23 @@ def check_rentals(results,
             result['parks'] = parks_count[result['zipcode']]
             result['parks_min'], result['parks_max'] = filtering_functions.min_in_zip(parks_count)
 
+            # OF FIRES IN ZIPCODE
+            result['fires'] = parks_count[result['zipcode']]
+            result['fires_min'], result['fires_max'] = filtering_functions.min_in_zip(fires_count)
+
+            # OF BARS IN ZIPCODE
+            result['bars'] = parks_count[result['zipcode']]
+            result['bars_min'], result['bars_max'] = filtering_functions.min_in_zip(bars_count)
+
+            # OF RESTAURANTS IN ZIPCODE
+            result['restaurants'] = parks_count[result['zipcode']]
+            result['restaurants_min'], result['restaurants_max'] = filtering_functions.min_in_zip(restaurants_count)
+
             # OF BUSINESSES IN ZIPCODE
+            result['businesses'] = parks_count[result['zipcode']]
+            result['businesses_min'], result['businesses_max'] = filtering_functions.min_in_zip(businesses_count)
+
+
 
         else:
             result['parks'] = "Zipcode Not Identified"
@@ -193,7 +217,20 @@ def check_rentals(results,
             else:
                 continue #doesn't meet user criteria, go on to next result
 
-
+        # SFPD DENSITY (Eevents window set @ 1km)
+        print("SFPD Density Filter")
+        if density_of_sfpds == "High":
+            result["sfpd_Density"] = "Not Evaluated"
+            result["sfpd_Count"] = "Not Evaluated"
+            pass #skip this filter, user doesn't care
+        else:
+            sfpd_Density, sfpd_Count = filtering_functions.sfpd_density(geotag,sfpd_locations)
+            if sfpd_Density == "Low SFPD Density" and density_of_sfpds == "Low":
+                result["sfpd_Density"], result["sfpd_Count"] = filtering_functions.sfpd_density(geotag,sfpd_locations)
+            elif sfpd_Density in ("Low SFPD Density","Medium SFPD Density") and density_of_sfpds == "Medium":
+                result["sfpd_Density"], result["sfpd_Count"] = filtering_functions.sfpd_density(geotag,sfpd_locations)
+            else:
+                continue #doesn't meet user criteria, go on to next result
 
         # VEHICLE PARKING DENSITY (Initial Parking window set @ 20km, huge window until we get actual locations loaded)
         print("Parking Density Filter")
@@ -275,23 +312,39 @@ def check_rentals(results,
         Listing Name: {2} \n \
         URL: <{3}> \n \
         GeoTag: {15} \n \
+        --------------------- \n \
+        LOCAL SCHOOLS: \n \
+        Local School Density (10km Radius): {7} \n \
+        Local School Count (10km Radius): {8} \n \
+        --------------------- \n \
+        HEALTH & SAFETY: \n \
+        Local SFPD Incidents Density (10km Radius): {23} \n \
+        --------------------- \n \
+        LOCAL PARKING: \n \
+        Public Parking Density (1km Radius): {11} \n \
+        Public Parking # of Spots (1km Radius): {12} \n \
+        Private Parking Density (1km Radius): {13} \n \
+        Private Parking # of Spots (1km Radius): {14} \n \
+        --------------------- \n \
+        LOCAL BIKE STUFF: \n \
         Bike Parking Close? {4} \n \
         Closest Bike Parking Location: {5} \n \
         Distance to Closest Bike Parking Location: {6} km \n \
         Bike Station Close? {16} \n \
         Closest Bike Station: {17} \n \
         Distance to Closest Bike Station: {18} km \n \
-        Local School Density (10km Radius): {7} \n \
-        Local School Count (10km Radius): {8} \n \
+        --------------------- \n \
+        OTHER FILTERS: \n \
         Local Tree Density (1km Radius): {9} \n \
         Local Tree Count (1km Radius): {10} \n \
-        Public Parking Density (1km Radius): {11} \n \
-        Public Parking # of Spots (1km Radius): {12} \n \
-        Private Parking Density (1km Radius): {13} \n \
-        Private Parking # of Spots (1km Radius): {14} \n \
+        --------------------- \n \
         EXTRA INFORMATION \n \
         Zipcode: {22} \n \
         # of Parks in Same Zipcode: {19} (Min:{20}, Max:{21}) \n \
+        # of Fires in Same Zipcode: {24} (Min:{25}, Max:{26}) \n \
+        # of Bars in Same Zipcode: {27} (Min:{28}, Max:{29}) \n \
+        # of Restaurants in Same Zipcode: {30} (Min:{31}, Max:{32}) \n \
+        # of Businesses in Same Zipcode: {33} (Min:{34}, Max:{35}) \n \
         **************************************************************************************** \
         ".format(result["area"],
         result["price"],
@@ -315,7 +368,20 @@ def check_rentals(results,
         result["parks"],
         result['parks_min'],
         result['parks_max'],
-        result['zipcode']
+        result['zipcode'],
+        result['sfpd_density'],
+        result["fires"],
+        result['fires_min'],
+        result['fires_max'],
+        result["bars"],
+        result['bars_min'],
+        result['bars_max'],
+        result["restaurants"],
+        result['restaurants_min'],
+        result['restaurants_max'],
+        result["businesses"],
+        result['businesses_min'],
+        result['businesses_max'],
         )
 
         # desc = "{0} | {1} | {2} | {3} | <{4}>".format(result["area"], result["price"], result["name"], result["url"])
