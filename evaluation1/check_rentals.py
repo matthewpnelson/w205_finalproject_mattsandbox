@@ -103,24 +103,24 @@ def check_rentals(results,
         if min_rank_businesses == 1:
             pass
         else:
-            if zipcode not in filtering_functions.check_businesses(min_rank_businesses, businesses_ranking):
+            if result['zipcode'] not in filtering_functions.check_businesses(min_rank_businesses, businesses_ranking):
                 continue #doesn't meet user criteria, go on to next result
 
         # NEARBY SCHOOLS
         if min_rank_evictions == 1:
             pass
         else:
-            if zipcode not in filtering_functions.check_evictions(min_rank_evictions, evictions_ranking):
+            if result['zipcode'] not in filtering_functions.check_evictions(min_rank_evictions, evictions_ranking):
                 continue #doesn't meet user criteria, go on to next result
 
         #-----------------------------------------------------------------------------------------------
         ## OTHER INFORMATION ON RENTAL
         #-----------------------------------------------------------------------------------------------
-        if zipcode != None:
+        if result['zipcode'] != None:
 
 
             # OF PARKS IN ZIPCODE
-            result['parks'] = parks_count[zipcode]
+            result['parks'] = parks_count[result['zipcode']]
             result['parks_min'], result['parks_max'] = filtering_functions.min_in_zip(parks_count)
 
             # OF BUSINESSES IN ZIPCODE
@@ -312,7 +312,7 @@ def check_rentals(results,
         result["parks"],
         result['parks_min'],
         result['parks_max'],
-        zipcode
+        result['zipcode']
         )
 
         # desc = "{0} | {1} | {2} | {3} | <{4}>".format(result["area"], result["price"], result["name"], result["url"])
