@@ -71,7 +71,7 @@ def check_rentals(results,
         #-----------------------------------------------------------------------------------------------
 
         # MAX PRICE
-        if max_rent == None:
+                if max_rent == None:
             pass
         else:
             try:
@@ -118,6 +118,7 @@ def check_rentals(results,
         #----------------------------------
 
         # BIKE PARKING (is bike parking within 20km of the rental? (huge window until we get actual locations loaded))
+        print("Bike Parking Filter")
         if close_to_bike_parking == "No":
             result["BP_close"] = "N/A"
             result["BP_location"] = "N/A"
@@ -139,6 +140,7 @@ def check_rentals(results,
         #----------------------------------
 
         # SCHOOL DENSITY (School window set @ 10km)
+        print("School Density Filter")
         if density_of_schools == "Low":
             pass #skip this filter, user doesn't care
         else:
@@ -151,6 +153,7 @@ def check_rentals(results,
                 continue #doesn't meet user criteria, go on to next result
 
         # TREE DENSITY (Tree window set @ 10km)
+        print("Tree Density Filter")
         if density_of_trees == "Low":
             pass #skip this filter, user doesn't care
         else:
@@ -163,6 +166,7 @@ def check_rentals(results,
                 continue #doesn't meet user criteria, go on to next result
 
         # VEHICLE PARKING DENSITY (Initial Parking window set @ 20km, huge window until we get actual locations loaded)
+        print("Parking Density Filter")
         if density_of_offstreet_parking == "Low":
             pass #skip this filter, user doesn't care
         else:
