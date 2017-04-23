@@ -2,7 +2,7 @@
 
 
 # inputs from user
-max_rent= 5000
+max_rent= 3000
 min_rent = 2000
 # min_rank_businesses = 1                 # 1 if you don't care about this, 10 if you really do
 # min_rank_evictions = 1                  # 1 if you don't care about this, 10 if you really do
