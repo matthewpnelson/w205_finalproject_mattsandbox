@@ -133,6 +133,22 @@ def close_to_bike_parking(geotag, bike_parking_locations):
             min_dist = dist
     return near_bike, bike, min_dist
 
+# Find closest Bike Station
+def close_to_bike_station(geotag, bike_parking_locations):
+
+    min_dist = None
+    near_bike = False
+    bike_dist = "N/A"
+    bike = ""
+    MAX_BIKE_DIST = 5 # kilometers
+
+    for spot, coords in bike_parking_locations.items():
+        dist = points2distance(coords,geotag)
+        if (min_dist is None or dist < min_dist) and dist < MAX_BIKE_DIST:
+            bike = spot
+            near_bike = True
+            min_dist = dist
+    return near_bike, bike, min_dist
 
 def parking_density(geotag, parking_locations):
 
