@@ -167,7 +167,7 @@ def main(sc):
                         parking = parking,
                         parks_count = parks
 
-                        max_rent= max_rent,
+                        max_rent = max_rent,
                         min_rent = min_rent,
                         # min_rank_businesses = min_rank_businesses,                 # 1 if you don't care about this, 10 if you really do
                         # min_rank_evictions = min_rank_evictions,                  # 1 if you don't care about this, 10 if you really do
