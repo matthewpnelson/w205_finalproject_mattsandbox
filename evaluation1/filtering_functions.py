@@ -162,9 +162,9 @@ def parking_density(geotag, parking_locations):
     for name, info in parking_locations.items():
         dist = points2distance(info[2],geotag)
         if dist < MAX_PARK_DIST and info[0] != "Private":
-            public_parking_count += info[1] # Assuming the Parking lot info has # of spots in the raw data
+            public_parking_count += int(info[1]) # Assuming the Parking lot info has # of spots in the raw data
         elif dist < MAX_PARK_DIST and info[0] == "Private":
-            private_parking_count += info[1]
+            private_parking_count += int(info[1])
         else:
             continue
 
