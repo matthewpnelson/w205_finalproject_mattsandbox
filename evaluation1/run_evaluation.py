@@ -9,7 +9,8 @@ min_rank_evictions = 1                  # 1 if you don't care about this, 10 if 
 close_to_bike_parking = "Yes"           # Care about close bike parking, Yes or No
 density_of_offstreet_parking = "Medium"
 density_of_trees = "Medium"
-density_of_schools = "Medium" # Low, Medium, High Density within Xkm (Select Low if you don't care)
+density_of_schools = "Low" # SKIP FOR NOW, GEOTAG NOT IN HIVE TABLE?
+# Low, Medium, High Density within Xkm (Select Low if you don't care)
                     # density_of_SFPD_Incidents = "High",       # Low, Medium, High Density in 2016 (Select High if you don't care)
                     # density_of_trees_100m = "Low")
 
