@@ -234,6 +234,7 @@ def check_rentals(results,
         Price: {1} \n \
         Listing Name: {2} \n \
         URL: <{3}> \n \
+        GeoTag: {15} \n \
         Bike Parking Close? {4} \n \
         Closest Bike Parking Location: {5} \n \
         Distance to Closest Bike Parking Location: {6} km \n \
@@ -260,7 +261,8 @@ def check_rentals(results,
         result["Public_Parking_Density"],\
         result["Public_Parking_Spots"],\
         result["Private_Parking_Density"],\
-        result["Private_Parking_Spots"]
+        result["Private_Parking_Spots"],\
+        result['geotag']
         )
 
         # desc = "{0} | {1} | {2} | {3} | <{4}>".format(result["area"], result["price"], result["name"], result["url"])

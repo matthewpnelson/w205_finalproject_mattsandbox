@@ -113,7 +113,7 @@ def close_to_bike_parking(geotag, bike_parking_locations):
     near_bike = False
     bike_dist = "N/A"
     bike = ""
-    MAX_BIKE_DIST = 0.5 # kilometers
+    MAX_BIKE_DIST = 1 # kilometers
 
     for spot, coords in bike_parking_locations.items():
         dist = points2distance(coords,geotag)
@@ -128,7 +128,7 @@ def parking_density(geotag, parking_locations):
 
     public_parking_count = 0
     private_parking_count = 0
-    MAX_PARK_DIST = 1 # kilometers
+    MAX_PARK_DIST = 2 # kilometers
     low_density_threshold = 10
     med_density_threshold = 30
 
@@ -167,8 +167,8 @@ def school_density(geotag, school_locations):
 
     school_count = 0
     MAX_SCHOOL_DIST = 10 # kilometers
-    low_density_threshold = 5
-    med_density_threshold = 10
+    low_density_threshold = 2
+    med_density_threshold = 5
 
     # Loop through school Locations and sum total available spots (within Max Distance of geotag) for both Private/Public
     for name, coords in school_locations.items():
