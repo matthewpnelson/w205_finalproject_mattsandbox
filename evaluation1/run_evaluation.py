@@ -6,7 +6,8 @@ max_rent= 3000
 min_rent = 2000
 min_rank_businesses = 1                 # 1 if you don't care about this, 10 if you really do
 min_rank_evictions = 1                  # 1 if you don't care about this, 10 if you really do
-close_to_bike_parking = "Yes"           # Care about close bike parking, Yes or No
+close_to_bike_parking = "Yes",          # Care about close bike parking, Yes or No
+close_to_bike_station = "Yes",           # Care about close bike station, Yes or No
 density_of_offstreet_parking = "Medium"
 density_of_trees = "Medium"
 density_of_schools = "Low" # SKIP FOR NOW, GEOTAG NOT IN HIVE TABLE?
@@ -34,6 +35,16 @@ def main(sc):
     # businesses_ranking_df = sqlContext.sql('SELECT * FROM businesses_ranking')
     # convert to dictionary
     # businesses_ranking = map(lambda row: row.asDict(), businesses_ranking_df.collect())
+
+    #############################################################
+    # Select PARKS from Hive Table
+    parks_table_df = sqlContext.sql('SELECT zipcode, count(park_name) as numparks FROM parks GROUP BY park_name')
+    # convert to dictionary
+    parks_dict = map(lambda row: row.asDict(), parks_table_df.collect())
+    parks = {each['zipcode']:each['numparks'] for each in parks_dict}
+
+
+
 
     #############################################################
     # Select BIKE PARKING from Hive Table
@@ -150,15 +161,18 @@ def main(sc):
                         businesses_ranking = businesses_ranking,              # Input Dictionary in form {zipcode: Rank}
                         evictions_ranking = evictions_ranking,               # Input Dictionary in form {zipcode: Rank}
                         bike_parking = bike_parking,
+                        bike_stations = bike_stations,
                         tree_locations = trees,
                         school_locations = schools,
                         parking = parking,
+                        parks_count = parks
 
                         max_rent= max_rent,
                         min_rent = min_rent,
                         # min_rank_businesses = min_rank_businesses,                 # 1 if you don't care about this, 10 if you really do
                         # min_rank_evictions = min_rank_evictions,                  # 1 if you don't care about this, 10 if you really do
                         close_to_bike_parking = close_to_bike_parking,           # Care about close bike parking, Yes or No
+                        close_to_bike_station = close_to_bike_station,
                         density_of_offstreet_parking = density_of_offstreet_parking, # Low, Medium, High Density within Xkm (Select Low if you don't care)))
                         density_of_trees = density_of_trees,
                         density_of_schools = density_of_schools

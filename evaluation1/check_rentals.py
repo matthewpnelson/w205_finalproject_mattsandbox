@@ -4,9 +4,11 @@ def check_rentals(results,
                     #schools_k9_ranking,               # Input Dictionary in form {zipcode: Rank}
                     #schools_hs_ranking,              # Input Dictionary in form {zipcode: Rank}
                     bike_parking,
+                    bike_stations,
                     school_locations,
                     tree_locations,
                     parking,
+                    parks_count,
 
 
                     max_rent= None,
@@ -18,6 +20,7 @@ def check_rentals(results,
                     min_rank_schools_hs = 1,                 # 1 if you don't care about this, 10 if you really do
                     # skip for now, min_rank_home_prices = 1,                # 1 if you don't care about this, 10 if you really do
                     close_to_bike_parking = "Yes",           # Care about close bike parking, Yes or No
+                    close_to_bike_station = "Yes",
                     distance_to_bike_share = "Short",        # Short, Medium, Long (Select Long if you don't care)
                     density_of_offstreet_parking = "Low", # Low, Medium, High Density within Xkm (Select Low if you don't care)
                     density_of_SFPD_Incidents = "High",       # Low, Medium, High Density in 2016 (Select High if you don't care)
@@ -110,6 +113,14 @@ def check_rentals(results,
                 continue #doesn't meet user criteria, go on to next result
 
         #-----------------------------------------------------------------------------------------------
+        ## OTHER INFORMATION ON RENTAL
+        #-----------------------------------------------------------------------------------------------
+        # OF PARKS IN ZIPCODE
+
+        result['parks'] = parks[zipcode]
+
+
+        #-----------------------------------------------------------------------------------------------
         ## DISTANCE BASED FILTERS
         #-----------------------------------------------------------------------------------------------
 
@@ -117,7 +128,7 @@ def check_rentals(results,
         ## DISTANCE TO X FILTERS
         #----------------------------------
 
-        # BIKE PARKING (is bike parking within 20km of the rental? (huge window until we get actual locations loaded))
+        # BIKE PARKING (is bike parking within 0.5km of the rental?
         print("Bike Parking Filter")
         if close_to_bike_parking == "No":
             result["BP_close"] = "Not Evaluated"
@@ -133,6 +144,23 @@ def check_rentals(results,
                 result["BP_close"] = BP_close
                 result["BP_location"] = BP_location
                 result["BP_distance"] = BP_distance
+
+        # BIKE STATIONS (is a bike station within 0.5km of the rental?
+        print("Bike Station Filter")
+        if close_to_bike_station == "No":
+            result["BS_close"] = "Not Evaluated"
+            result["BS_location"] = "Not Evaluated"
+            result["BS_distance"] = "Not Evaluated"
+
+            pass #skip this filter, user doesn't care
+        else:
+            BS_close, BS_location, BS_distance = filtering_functions.close_to_bike_parking(geotag, bike_stations)
+            if BS_close == False:
+                continue #doesn't meet user criteria, go on to next result
+            else:
+                result["BS_close"] = BS_close
+                result["BS_location"] = BS_location
+                result["BS_distance"] = BS_distance
 
 
         #----------------------------------
@@ -239,6 +267,9 @@ def check_rentals(results,
         Bike Parking Close? {4} \n \
         Closest Bike Parking Location: {5} \n \
         Distance to Closest Bike Parking Location: {6} km \n \
+        Bike Station Close? {16} \n \
+        Closest Bike Station: {17} \n \
+        Distance to Closest Bike Station: {18} km \n \
         Local School Density (10km Radius): {7} \n \
         Local School Count (10km Radius): {8} \n \
         Local Tree Density (1km Radius): {9} \n \
@@ -247,23 +278,29 @@ def check_rentals(results,
         Public Parking # of Spots (1km Radius): {12} \n \
         Private Parking Density (1km Radius): {13} \n \
         Private Parking # of Spots (1km Radius): {14} \n \
+        EXTRA INFORMATION \n \
+        # of Parks in Same Zipcode: {19} \n \
         **************************************************************************************** \
-        ".format(result["area"],\
-        result["price"],\
-        result["name"],\
-        result["url"],\
-        result["BP_close"],\
-        result["BP_location"],\
-        round(result["BP_distance"],2),\
-        result["School_Density"],\
-        result["School_Count"],\
-        result["tree_density"],\
-        result["tree_count"],\
-        result["Public_Parking_Density"],\
-        result["Public_Parking_Spots"],\
-        result["Private_Parking_Density"],\
-        result["Private_Parking_Spots"],\
-        result['geotag']
+        ".format(result["area"],
+        result["price"],
+        result["name"],
+        result["url"],
+        result["BP_close"],
+        result["BP_location"],
+        round(result["BP_distance"],2),
+        result["School_Density"],
+        result["School_Count"],
+        result["tree_density"],
+        result["tree_count"],
+        result["Public_Parking_Density"],
+        result["Public_Parking_Spots"],
+        result["Private_Parking_Density"],
+        result["Private_Parking_Spots"],
+        result['geotag'],
+        result["BS_close"],
+        result["BS_location"],
+        round(result["BS_distance"],2),
+        result["parks"]
         )
 
         # desc = "{0} | {1} | {2} | {3} | <{4}>".format(result["area"], result["price"], result["name"], result["url"])
