@@ -128,7 +128,7 @@ def parking_density(geotag, parking_locations):
 
     public_parking_count = 0
     private_parking_count = 0
-    MAX_PARK_DIST = 2 # kilometers
+    MAX_PARK_DIST = 1 # kilometers
     low_density_threshold = 10
     med_density_threshold = 30
 
@@ -167,8 +167,8 @@ def school_density(geotag, school_locations):
 
     school_count = 0
     MAX_SCHOOL_DIST = 10 # kilometers
-    low_density_threshold = 1
-    med_density_threshold = 3
+    low_density_threshold = 3
+    med_density_threshold = 10
 
     # Loop through school Locations and sum total available spots (within Max Distance of geotag) for both Private/Public
     for name, coords in school_locations.items():
@@ -193,9 +193,9 @@ def school_density(geotag, school_locations):
 def tree_density(geotag, tree_locations):
 
     tree_count = 0
-    MAX_TREE_DIST = 10 # kilometers
-    low_density_threshold = 10
-    med_density_threshold = 50
+    MAX_TREE_DIST = 1 # kilometers
+    low_density_threshold = 1000
+    med_density_threshold = 10000
 
     # Loop through tree Locations and sum total
     for name, coords in tree_locations.items():
