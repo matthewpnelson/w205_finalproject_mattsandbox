@@ -156,7 +156,7 @@ def parking_density(geotag, parking_locations):
     private_parking_count = 0
     MAX_PARK_DIST = 1 # kilometers
     low_density_threshold = 10
-    med_density_threshold = 30
+    med_density_threshold = 20
 
     # Loop through Parking Locations and sum total available spots (within Max Distance of geotag) for both Private/Public
     for name, info in parking_locations.items():
