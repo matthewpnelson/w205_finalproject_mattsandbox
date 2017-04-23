@@ -1,9 +1,15 @@
 # Zip Lookup by GeoTag
+import os
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
+
 
 # Function to Take a list of latlong polygons with associated zip codes and turn into a dictionary with key = zipcode
 def import_zip_polygons(filename = 'San_Francisco_ZIP_Codes.csv'):
     import csv
-    with open(filename, 'rt') as fin:
+    # with open(filename, 'rt') as fin:
+    with open(os.path.join(__location__, filename),'rt') as fin:
         reader = csv.reader(fin, delimiter=',')
         latlong = []
         zipcode = []
