@@ -165,7 +165,7 @@ def main(sc):
                         tree_locations = trees,
                         school_locations = schools,
                         parking = parking,
-                        parks_count = parks
+                        parks_count = parks,
 
                         max_rent = max_rent,
                         min_rent = min_rent,
