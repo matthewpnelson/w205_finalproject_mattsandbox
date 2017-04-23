@@ -24,9 +24,9 @@ def min_in_zip(zip_eval_dict):
     minimum = None
     maximum = None
     for zipcode, count in zip_eval_dict.items():
-        if count < minimum or minimum = None:
+        if count < minimum or minimum == None:
             minimum = count
-        if count > maximum or maximum = None:
+        if count > maximum or maximum == None:
             maximum = count
     return minimum, maximum
 
