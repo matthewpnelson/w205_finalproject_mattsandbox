@@ -71,7 +71,7 @@ def check_rentals(results,
         #-----------------------------------------------------------------------------------------------
 
         # MAX PRICE
-                if max_rent == None:
+        if max_rent == None:
             pass
         else:
             try:
