@@ -142,10 +142,9 @@ def check_rentals(results,
             pass #skip this filter, user doesn't care
         else:
             School_Density, School_Count = filtering_functions.school_density(geotag,school_locations)
-            if (School_Density == "High School Density") and density_of_schools == "High":
+            if School_Density == "High School Density" and density_of_schools == "High":
                 result["School_Density"], result["School_Count"] = filtering_functions.school_density(geotag,school_locations)
-            elif (School_Density in ("High School Density","Medium School Density") \
-                and density_of_schools == "Medium":
+            elif School_Density in ("High School Density","Medium School Density") and density_of_schools == "Medium":
                 result["School_Density"], result["School_Count"] = filtering_functions.school_density(geotag,school_locations)
             else:
                 continue #doesn't meet user criteria, go on to next result
@@ -155,10 +154,9 @@ def check_rentals(results,
             pass #skip this filter, user doesn't care
         else:
             tree_density, tree_count = filtering_functions.tree_density(geotag,tree_locations)
-            if (tree_density == "High Tree Density") and density_of_trees == "High":
+            if tree_density == "High Tree Density" and density_of_trees == "High":
                 result["tree_density"], result["tree_count"] = filtering_functions.tree_density(geotag,tree_locations)
-            elif (tree_density in ("High Tree Density","Medium Tree Density") \
-                and density_of_trees == "Medium":
+            elif tree_density in ("High Tree Density","Medium Tree Density") and density_of_trees == "Medium":
                 result["tree_density"], result["tree_count"] = filtering_functions.tree_density(geotag,tree_locations)
             else:
                 continue #doesn't meet user criteria, go on to next result
