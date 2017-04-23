@@ -219,8 +219,8 @@ def sfpd_density(geotag, sfpd_locations):
 
     sfpd_count = 0
     MAX_SFPD_DIST = 1 # kilometers
-    low_density_threshold = 20
-    med_density_threshold = 50
+    low_density_threshold = 5000
+    med_density_threshold = 10000
 
     # Loop through sfpd Locations and sum total available spots (within Max Distance of geotag) for both Private/Public
     for name, coords in sfpd_locations.items():
