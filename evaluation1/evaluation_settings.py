@@ -9,7 +9,7 @@ SLACK_CHANNEL = "#playground"
 
 # The token that allows us to connect to slack.
 # Should be put in private.py, or set as an environment variable.
-# SLACK_TOKEN = os.getenv('SLACK_TOKEN', "")
+SLACK_TOKEN = os.getenv('SLACK_TOKEN', "")
 
 # Any private settings are imported here.
 try:
