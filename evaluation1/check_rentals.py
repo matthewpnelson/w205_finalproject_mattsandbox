@@ -119,6 +119,7 @@ def check_rentals(results,
 
 
             # OF PARKS IN ZIPCODE
+            print(zipcode, type(zipcode))
             result['parks'] = parks_count[zipcode]
             result['parks_min'], result['parks_max'] = filtering_functions.min_in_zip(parks_count)
 
