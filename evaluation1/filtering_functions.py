@@ -113,7 +113,7 @@ def close_to_bike_parking(geotag, bike_parking_locations):
     near_bike = False
     bike_dist = "N/A"
     bike = ""
-    MAX_BIKE_DIST = 1 # kilometers
+    MAX_BIKE_DIST = 5 # kilometers
 
     for spot, coords in bike_parking_locations.items():
         dist = points2distance(coords,geotag)
@@ -193,7 +193,7 @@ def school_density(geotag, school_locations):
 def tree_density(geotag, tree_locations):
 
     tree_count = 0
-    MAX_TREE_DIST = 1 # kilometers
+    MAX_TREE_DIST = 10 # kilometers
     low_density_threshold = 10
     med_density_threshold = 50
 
