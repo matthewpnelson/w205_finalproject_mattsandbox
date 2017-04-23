@@ -2,7 +2,7 @@
 
 
 # inputs from user
-max_rent= 6000
+max_rent= 3000
 min_rent = 2000
 min_rank_businesses = 1                 # 1 if you don't care about this, 10 if you really do
 min_rank_evictions = 1                  # 1 if you don't care about this, 10 if you really do
@@ -15,26 +15,6 @@ density_of_schools = "Low" # SKIP FOR NOW, GEOTAG NOT IN HIVE TABLE?
                     # density_of_trees_100m = "Low")
 
 
-
-
-
-
-# Initialize Spark Context & Select Relevent Data From Hive Tables
-# from pyspark import SparkContext, SparkConf
-# from pyspark.sql import HiveContext
-# from pyspark.sql import SparkSession
-# from pyspark.sql.types import *
-#
-# spark = SparkSession.builder.master("yarn").appName("my app").enableHiveSupport().getOrCreate()
-#
-# conf = SparkConf().setAppName('Static Evaluations')
-# sc = SparkContext(conf=conf)
-
-
-#############################
-# Rental Data
-# Need in Form: output = {'id': '6060895324', 'has_map': True, 'price': '$1600', 'url': 'http://sfbay.craigslist.org/sfc/apa/6060895324.html',
-#          'name': 'Furnished Room', 'has_image': True, 'datetime': '2017-03-26 09:33', 'where': 'nob hill', 'geotag': (37.790788, -122.419036)}
 
 def main(sc):
     sqlContext = HiveContext(sc)
@@ -142,23 +122,12 @@ def main(sc):
         except:
             continue
 
-    # parking =      {'location 1': ["Private", 13, (37.7606289177, -122.410647009)],
-    #                 'location 2': ["Private", 15, (37.7855355791102, -122.411302813025)],
-    #                 'location 3': ["Public", 18, (37.7759676911831, -122.441396661871)],
-    #                 'location 4': ["Private", 27, (37.7518243814, -122.426627114)],
-    #                 'location 5': ["Private", 60, (37.75182438, -122.4266271)]}
-
 
     #########################
     # Fake for now
     businesses_ranking = {'94102': 1, '11111': 5, '94104': 10, '94105': 10 }
     evictions_ranking = {'94102': 7, '11111': 4, '94104': 10, '94105': 9 }
 
-    # bike_parking = {'location 1': (37.7606289177, -122.410647009),
-    #                 'location 2': (37.7855355791102, -122.411302813025),
-    #                 'location 3': (37.7759676911831, -122.441396661871),
-    #                 'location 4': (37.7518243814, -122.426627114),
-    #                 'location 5': (37.75182438, -122.4266271)}
     #
     # bike_share =   {'location 1': (37.7606289177, -122.410647009),
     #                 'location 2': (37.7855355791102, -122.411302813025),
@@ -166,23 +135,13 @@ def main(sc):
     #                 'location 4': (37.7518243814, -122.426627114),
     #                 'location 5': (37.75182438, -122.4266271)}
 
-    parking =      {'location 1': ["Private", 13, (37.7606289177, -122.410647009)],
-                    'location 2': ["Private", 15, (37.7855355791102, -122.411302813025)],
-                    'location 3': ["Public", 18, (37.7759676911831, -122.441396661871)],
-                    'location 4': ["Private", 27, (37.7518243814, -122.426627114)],
-                    'location 5': ["Private", 60, (37.75182438, -122.4266271)]}
-
     # SFPD =      {'location 1': (37.7606289177, -122.410647009),
     #                 'location 2': (37.7855355791102, -122.411302813025),
     #                 'location 3': (37.7759676911831, -122.441396661871),
     #                 'location 4': (37.7518243814, -122.426627114),
     #                 'location 5': (37.75182438, -122.4266271)}
     #
-    # trees =      {'location 1': (37.7606289177, -122.410647009),
-    #                 'location 2': (37.7855355791102, -122.411302813025),
-    #                 'location 3': (37.7759676911831, -122.441396661871),
-    #                 'location 4': (37.7518243814, -122.426627114),
-    #                 'location 5': (37.75182438, -122.4266271)}
+
 
 
     from check_rentals import check_rentals

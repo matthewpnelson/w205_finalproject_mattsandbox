@@ -154,20 +154,7 @@ def check_rentals(results,
             else:
                 continue #doesn't meet user criteria, go on to next result
 
-        # TREE DENSITY (Tree window set @ 10km)
-        print("Tree Density Filter")
-        if density_of_trees == "Low":
-            result["tree_density"] = "Not Evaluated"
-            result["tree_count"] = "Not Evaluated"
-            pass #skip this filter, user doesn't care
-        else:
-            tree_density, tree_count = filtering_functions.tree_density(geotag,tree_locations)
-            if tree_density == "High Tree Density" and density_of_trees == "High":
-                result["tree_density"], result["tree_count"] = filtering_functions.tree_density(geotag,tree_locations)
-            elif tree_density in ("High Tree Density","Medium Tree Density") and density_of_trees == "Medium":
-                result["tree_density"], result["tree_count"] = filtering_functions.tree_density(geotag,tree_locations)
-            else:
-                continue #doesn't meet user criteria, go on to next result
+
 
         # VEHICLE PARKING DENSITY (Initial Parking window set @ 20km, huge window until we get actual locations loaded)
         print("Parking Density Filter")
@@ -192,6 +179,20 @@ def check_rentals(results,
                 continue #doesn't meet user criteria, go on to next result
 
 
+        # TREE DENSITY (Tree window set @ 1km) -Leave as Last Filter
+        print("Tree Density Filter")
+        if density_of_trees == "Low":
+            result["tree_density"] = "Not Evaluated"
+            result["tree_count"] = "Not Evaluated"
+            pass #skip this filter, user doesn't care
+        else:
+            tree_density, tree_count = filtering_functions.tree_density(geotag,tree_locations)
+            if tree_density == "High Tree Density" and density_of_trees == "High":
+                result["tree_density"], result["tree_count"] = filtering_functions.tree_density(geotag,tree_locations)
+            elif tree_density in ("High Tree Density","Medium Tree Density") and density_of_trees == "Medium":
+                result["tree_density"], result["tree_count"] = filtering_functions.tree_density(geotag,tree_locations)
+            else:
+                continue #doesn't meet user criteria, go on to next result
 
 
         ################################################################################################
@@ -246,7 +247,7 @@ def check_rentals(results,
         Public Parking # of Spots (1km Radius): {12} \n \
         Private Parking Density (1km Radius): {13} \n \
         Private Parking # of Spots (1km Radius): {14} \n \
-        ************************************************************************************************* \
+        **************************************************************************************** \
         ".format(result["area"],\
         result["price"],\
         result["name"],\
