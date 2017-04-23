@@ -40,14 +40,14 @@ def check_rentals(results,
 
     tentative_rental = []
     valid_rentals = []
+
     for result in results:
-        print("Evaluating: ", result['name'], result['url'])
+        print("Evaluating: ", result['name'], result['url'], result['geotag'])
         ################################################################################################
         ### INITIALIZE RESULT
 
         # assign geotag if it is provided in the rental ad
-        if result['geotag'] is not None:
-            geotag = result['geotag']
+        if result['geotag'] != None:
             geotag = []
             for each in result['geotag'][1:-1].strip().split(","):
                 geotag.append(each)
@@ -56,7 +56,8 @@ def check_rentals(results,
         else:
             continue #skip for now because there is no geotag
 
-        zipcode = zip_lookup.zip_lookup_by_geotag(geotag)
+        # print(geotag)
+        result['zipcode'] = zip_lookup.zip_lookup_by_geotag(geotag)
         tentative_rental.append(result)
 
         ### Get Approximate Neighbourhood by Geotag
@@ -115,7 +116,7 @@ def check_rentals(results,
         #-----------------------------------------------------------------------------------------------
         ## OTHER INFORMATION ON RENTAL
         #-----------------------------------------------------------------------------------------------
-        if zipcode != 'None':
+        if zipcode != None:
 
 
             # OF PARKS IN ZIPCODE
