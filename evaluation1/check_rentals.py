@@ -188,6 +188,17 @@ def check_rentals(results,
               "Bike Parking (Close?, Location Name, Distance (km)): " + str(result["BP_close"]) +  str(result["BP_location"]) +  str(result["BP_distance"]) +  "\n" # + \
             #   "Local Public Off-Street Parking Density, # of Spots: " +  result["Public_Parking_Density"] +  result["Public_Parking_Spots"] +  "\n" + \
             #   "Local Private Off-Street Parking Density, # of Spots: " + result["Private_Parking_Density"] +  result["Private_Parking_Spots"]
+
+        desc= "************************HERE IS A LISTING THAT MEETS YOUR CRITERIA********************* \n \
+        Area: {0} km \n \
+        Price: {1} \n \
+        Listing Name: {2} \n \
+        URL: <{3}> \n \
+        Bike Parking Close? {4} \n \
+        Closest Bike Parking Location: {5} \n \
+        Distance to Closest Bike Parking Location: {6} km \n \
+        ****************************************************************************************".format(result["area"],result["price"],result["name"],result["url"],result["BP_close"],result["BP_location"],round(result["BP_distance"],2))
+
         # desc = "{0} | {1} | {2} | {3} | <{4}>".format(result["area"], result["price"], result["name"], result["url"])
         sc.api_call(
             "chat.postMessage", channel=SLACK_CHANNEL, text=desc,
