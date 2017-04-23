@@ -126,6 +126,7 @@ def check_rentals(results,
 
         else:
             result['parks'] = "Zipcode Not Identified"
+            result['parks_min'], result['parks_max'] = filtering_functions.min_in_zip(parks_count)
         #-----------------------------------------------------------------------------------------------
         ## DISTANCE BASED FILTERS
         #-----------------------------------------------------------------------------------------------
