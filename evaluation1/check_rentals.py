@@ -246,15 +246,15 @@ def check_rentals(results,
 
         # SFPD DENSITY (Eevents window set @ 1km)
         print("SFPD Density Filter")
-        if density_of_sfpds == "High":
+        if density_of_SFPD_Incidents == "High":
             result["sfpd_Density"] = "Not Evaluated"
             result["sfpd_Count"] = "Not Evaluated"
             pass #skip this filter, user doesn't care
         else:
             sfpd_Density, sfpd_Count = filtering_functions.sfpd_density(geotag,sfpd_locations)
-            if sfpd_Density == "Low SFPD Density" and density_of_sfpds == "Low":
+            if sfpd_Density == "Low SFPD Density" and density_of_SFPD_Incidents == "Low":
                 result["sfpd_Density"], result["sfpd_Count"] = filtering_functions.sfpd_density(geotag,sfpd_locations)
-            elif sfpd_Density in ("Low SFPD Density","Medium SFPD Density") and density_of_sfpds == "Medium":
+            elif sfpd_Density in ("Low SFPD Density","Medium SFPD Density") and density_of_SFPD_Incidents == "Medium":
                 result["sfpd_Density"], result["sfpd_Count"] = filtering_functions.sfpd_density(geotag,sfpd_locations)
             else:
                 continue #doesn't meet user criteria, go on to next result

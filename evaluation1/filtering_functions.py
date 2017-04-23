@@ -140,7 +140,7 @@ def close_to_bike_station(geotag, bike_parking_locations):
     near_bike = False
     bike_dist = "N/A"
     bike = ""
-    MAX_BIKE_DIST = 5 # kilometers
+    MAX_BIKE_DIST = 1 # kilometers
 
     for spot, coords in bike_parking_locations.items():
         dist = points2distance(coords,geotag)
