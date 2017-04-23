@@ -119,20 +119,20 @@ def main(sc):
 
     #############################################################
     # Select PARKING LOCATIONS from Hive Table
-parking_table_df = sqlContext.sql('SELECT address, owner, reg_cap, location_1 FROM parking')
-# convert to dictionary
-parking_dict = map(lambda row: row.asDict(), parking_table_df.collect())
-parking = {}
-for entry in parking_dict:
-    try:
-        geo = []
-        for each in entry['location_1'][1:-1].strip().split(","):
-            geo.append(each)
-        if len(geo) != 2:
+    parking_table_df = sqlContext.sql('SELECT address, owner, reg_cap, location_1 FROM parking')
+    # convert to dictionary
+    parking_dict = map(lambda row: row.asDict(), parking_table_df.collect())
+    parking = {}
+    for entry in parking_dict:
+        try:
+            geo = []
+            for each in entry['location_1'][1:-1].strip().split(","):
+                geo.append(each)
+            if len(geo) != 2:
+                continue
+            parking[entry['address']] = [entry['owner'], entry['reg_cap'], geo]
+        except:
             continue
-        parking[entry['address']] = [entry['owner'], entry['reg_cap'], geo]
-    except:
-        continue
 
 
     #########################
