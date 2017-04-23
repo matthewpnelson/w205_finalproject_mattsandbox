@@ -142,6 +142,8 @@ def check_rentals(results,
         # SCHOOL DENSITY (School window set @ 10km)
         print("School Density Filter")
         if density_of_schools == "Low":
+            result["School_Density"] = "N/A"
+            result["School_Count"] = "N/A"
             pass #skip this filter, user doesn't care
         else:
             School_Density, School_Count = filtering_functions.school_density(geotag,school_locations)
@@ -155,6 +157,8 @@ def check_rentals(results,
         # TREE DENSITY (Tree window set @ 10km)
         print("Tree Density Filter")
         if density_of_trees == "Low":
+            result["tree_density"] = "N/A"
+            result["tree_count"] = "N/A"
             pass #skip this filter, user doesn't care
         else:
             tree_density, tree_count = filtering_functions.tree_density(geotag,tree_locations)
@@ -168,6 +172,10 @@ def check_rentals(results,
         # VEHICLE PARKING DENSITY (Initial Parking window set @ 20km, huge window until we get actual locations loaded)
         print("Parking Density Filter")
         if density_of_offstreet_parking == "Low":
+            result["Public_Parking_Density"] = "N/A"
+            result["Public_Parking_Spots"] = "N/A"
+            result["Private_Parking_Density"] = "N/A"
+            result["Private_Parking_Spots"] = "N/A"
             pass #skip this filter, user doesn't care
         else:
             Public_Parking_Density, Public_Parking_Spots, Private_Parking_Density, \
