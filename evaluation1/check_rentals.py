@@ -21,7 +21,8 @@ def check_rentals(results,
                     distance_to_bike_share = "Short",        # Short, Medium, Long (Select Long if you don't care)
                     density_of_offstreet_parking = "Low", # Low, Medium, High Density within Xkm (Select Low if you don't care)
                     density_of_SFPD_Incidents = "High",       # Low, Medium, High Density in 2016 (Select High if you don't care)
-                    density_of_trees = "Low"):          # Low, Medium, High Density within 500m (Select Low if you don't care):
+                    density_of_trees = "Low",           # Low, Medium, High Density within 500m (Select Low if you don't care):
+                    density_of_schools = "Low"):          # Low, Medium, High Density within 500m (Select Low if you don't care):
 
     '''Script used to filter all craigslist rentals according to user preferences.
 

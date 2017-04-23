@@ -6,9 +6,10 @@ max_rent= 6000
 min_rent = 2000
 min_rank_businesses = 1                 # 1 if you don't care about this, 10 if you really do
 min_rank_evictions = 1                  # 1 if you don't care about this, 10 if you really do
-close_to_bike_parking = "Yes",           # Care about close bike parking, Yes or No
-density_of_offstreet_parking = "Medium",
-density_of_trees = "Medium" # Low, Medium, High Density within Xkm (Select Low if you don't care)
+close_to_bike_parking = "Yes"           # Care about close bike parking, Yes or No
+density_of_offstreet_parking = "Medium"
+density_of_trees = "Medium"
+density_of_schools = "Medium" # Low, Medium, High Density within Xkm (Select Low if you don't care)
                     # density_of_SFPD_Incidents = "High",       # Low, Medium, High Density in 2016 (Select High if you don't care)
                     # density_of_trees_100m = "Low")
 
@@ -199,7 +200,8 @@ def main(sc):
                         # min_rank_evictions = min_rank_evictions,                  # 1 if you don't care about this, 10 if you really do
                         close_to_bike_parking = close_to_bike_parking,           # Care about close bike parking, Yes or No
                         density_of_offstreet_parking = density_of_offstreet_parking, # Low, Medium, High Density within Xkm (Select Low if you don't care)))
-                        density_of_trees = density_of_trees
+                        density_of_trees = density_of_trees,
+                        density_of_schools = density_of_schools
                     )
 
 
