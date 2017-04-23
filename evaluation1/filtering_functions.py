@@ -113,7 +113,7 @@ def close_to_bike_parking(geotag, bike_parking_locations):
     near_bike = False
     bike_dist = "N/A"
     bike = ""
-    MAX_BIKE_DIST = 1 # kilometers
+    MAX_BIKE_DIST = 0.1 # kilometers
 
     for spot, coords in bike_parking_locations.items():
         dist = points2distance(coords,geotag)
@@ -123,18 +123,19 @@ def close_to_bike_parking(geotag, bike_parking_locations):
             min_dist = dist
     return near_bike, bike, min_dist
 
+
 def parking_density(geotag, parking_locations):
 
     public_parking_count = 0
     private_parking_count = 0
-    MAX_PARK_DIST = 20 # kilometers
+    MAX_PARK_DIST = 1 # kilometers
     low_density_threshold = 20
     med_density_threshold = 100
 
     # Loop through Parking Locations and sum total available spots (within Max Distance of geotag) for both Private/Public
     for name, info in parking_locations.items():
         dist = points2distance(info[2],geotag)
-        if dist < MAX_PARK_DIST and info[0] == "Public":
+        if dist < MAX_PARK_DIST and info[0] != "Private":
             public_parking_count += info[1] # Assuming the Parking lot info has # of spots in the raw data
         elif dist < MAX_PARK_DIST and info[0] == "Private":
             private_parking_count += info[1]
@@ -160,3 +161,57 @@ def parking_density(geotag, parking_locations):
         private_parking_density = "High Private Parking Density"
 
     return public_parking_density, public_parking_count, private_parking_density, private_parking_count
+
+
+def school_density(geotag, school_locations):
+
+    school_count = 0
+    MAX_SCHOOL_DIST = 10 # kilometers
+    low_density_threshold = 5
+    med_density_threshold = 15
+
+    # Loop through school Locations and sum total available spots (within Max Distance of geotag) for both Private/Public
+    for name, coords in school_locations.items():
+        dist = points2distance(coords,geotag)
+        if dist < MAX_SCHOOL_DIST:
+            school_count += 1
+        else:
+            continue
+
+    # Characterize Public school Density
+    school_density = None
+    if school_count > 0 and school_count <= low_density_threshold:
+        school_density = "Low School Density"
+    elif school_count > low_density_threshold and school_count <= med_density_threshold:
+        school_density = "Medium School Density"
+    elif school_count > med_density_threshold:
+        school_density = "High School Density"
+
+    return school_density, school_count
+
+
+def tree_density(geotag, tree_locations):
+
+    tree_count = 0
+    MAX_TREE_DIST = 1 # kilometers
+    low_density_threshold = 100
+    med_density_threshold = 500
+
+    # Loop through tree Locations and sum total
+    for name, coords in tree_locations.items():
+        dist = points2distance(coords,geotag)
+        if dist < MAX_TREE_DIST:
+            tree_count += 1
+        else:
+            continue
+
+    # Characterize Public tree Density
+    tree_density = None
+    if tree_count > 0 and tree_count <= low_density_threshold:
+        tree_density = "Low Tree Density"
+    elif tree_count > low_density_threshold and tree_count <= med_density_threshold:
+        tree_density = "Medium Tree Density"
+    elif tree_count > med_density_threshold:
+        tree_density = "High Tree Density"
+
+    return tree_density, tree_count

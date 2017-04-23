@@ -10,8 +10,8 @@ mkdir ~/slackbot_staging
 cd ~/slackbot_staging
 
 # get medicare files from s3
-wget https://s3.amazonaws.com/ucbmids205-slackbot-static/static_data.zip
-unzip static_data.zip
+wget https://s3.amazonaws.com/ucbmids205-slackbot-static/static_data2.zip
+unzip static_data2.zip
 
 # remove first line of files and rename
 tail -n +3 Active_Business_Locations.csv > businesses.csv

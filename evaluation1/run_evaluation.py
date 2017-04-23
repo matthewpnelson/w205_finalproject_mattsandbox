@@ -52,25 +52,99 @@ def main(sc):
     # convert to dictionary
     # businesses_ranking = map(lambda row: row.asDict(), businesses_ranking_df.collect())
 
-    # Select Bike Parking from Hive Table
+    #############################################################
+    # Select BIKE PARKING from Hive Table
     bike_parking_table_df = sqlContext.sql('SELECT location, geom FROM bike_parking')
-
     # convert to dictionary
     bike_parking_dict = map(lambda row: row.asDict(), bike_parking_table_df.collect())
     bike_parking = {}
-    for entry in bike_parking_dict:
+    for entry in bike_parking_dict: #dictionary comprehension wasn't working for some reason...
         try:
             geo = []
             for each in entry['geom'][1:-1].strip().split(","):
                 geo.append(each)
             if len(geo) != 2:
                 continue
-            # geo = (entry['geom'][1:-1].strip().split(","))
             bike_parking[entry['location']] = geo
         except:
             continue
-# print(bike_parking)
-    # {entry['location']:entry['geom'] for entry in bike_parking_dict} dictionary comprehension not working in Spark-submit?
+
+    #############################################################
+    # Select BIKE STATIONS from Hive Table
+    bike_stations_table_df = sqlContext.sql('SELECT location_name, geom FROM bike_stations')
+    # convert to dictionary
+    bike_stations_dict = map(lambda row: row.asDict(), bike_stations_table_df.collect())
+    bike_stations = {}
+    for entry in bike_stations_dict:
+        try:
+            geo = []
+            for each in entry['geom'][1:-1].strip().split(","):
+                geo.append(each)
+            if len(geo) != 2:
+                continue
+            bike_stations[entry['location_name']] = geo
+        except:
+            continue
+
+
+    #############################################################
+    # Select SCHOOL LOCATIONS from Hive Table (GEOTAG NAME NOT CHANGED YET)
+    schools_table_df = sqlContext.sql('SELECT campus_name, location_1 FROM schools')
+    # convert to dictionary
+    schools_dict = map(lambda row: row.asDict(), schools_table_df.collect())
+    schools = {}
+    for entry in schools_dict:
+        try:
+            geo = []
+            for each in entry['location_1'][1:-1].strip().split(","):
+                geo.append(each)
+            if len(geo) != 2:
+                continue
+            schools[entry['campus_name']] = geo
+        except:
+            continue
+
+    #############################################################
+    # Select TREES from Hive Table
+    trees_df = sqlContext.sql('SELECT tree_id, location FROM trees')
+    # convert to dictionary
+    trees_dict = map(lambda row: row.asDict(), trees_table_df.collect())
+    trees = {}
+    for entry in trees_dict:
+        try:
+            geo = []
+            for each in entry['location'][1:-1].strip().split(","):
+                geo.append(each)
+            if len(geo) != 2:
+                continue
+            trees[entry['tree_id']] = geo
+        except:
+            continue
+
+
+    #############################################################
+    # Select PARKING LOCATIONS from Hive Table
+    parking_df = sqlContext.sql('SELECT address, owner, reg_cap, location_1 FROM parking')
+    # convert to dictionary
+    parking_dict = map(lambda row: row.asDict(), parking_table_df.collect())
+    parking = {}
+    for entry in parking_dict:
+        try:
+            geo = []
+            for each in entry['location'][1:-1].strip().split(","):
+                geo.append(each)
+            if len(geo) != 2:
+                continue
+            parking[entry['tree_id']] = [entry['owner'], entry['reg_cap'], geo]
+        except:
+            continue
+
+    # parking =      {'location 1': ["Private", 13, (37.7606289177, -122.410647009)],
+    #                 'location 2': ["Private", 15, (37.7855355791102, -122.411302813025)],
+    #                 'location 3': ["Public", 18, (37.7759676911831, -122.441396661871)],
+    #                 'location 4': ["Private", 27, (37.7518243814, -122.426627114)],
+    #                 'location 5': ["Private", 60, (37.75182438, -122.4266271)]}
+
 
     #########################
     # Fake for now
@@ -89,7 +163,7 @@ def main(sc):
     #                 'location 4': (37.7518243814, -122.426627114),
     #                 'location 5': (37.75182438, -122.4266271)}
 
-    off_street_parking =      {'location 1': ["Private", 13, (37.7606289177, -122.410647009)],
+    parking =      {'location 1': ["Private", 13, (37.7606289177, -122.410647009)],
                     'location 2': ["Private", 15, (37.7855355791102, -122.411302813025)],
                     'location 3': ["Public", 18, (37.7759676911831, -122.441396661871)],
                     'location 4': ["Private", 27, (37.7518243814, -122.426627114)],
@@ -114,13 +188,17 @@ def main(sc):
                         businesses_ranking = businesses_ranking,              # Input Dictionary in form {zipcode: Rank}
                         evictions_ranking = evictions_ranking,               # Input Dictionary in form {zipcode: Rank}
                         bike_parking = bike_parking,
+                        tree_locations = trees,
+                        school_locations = schools,
+                        parking = parking,
 
                         max_rent= max_rent,
                         min_rent = min_rent,
-                        min_rank_businesses = min_rank_businesses,                 # 1 if you don't care about this, 10 if you really do
-                        min_rank_evictions = min_rank_evictions,                  # 1 if you don't care about this, 10 if you really do
+                        # min_rank_businesses = min_rank_businesses,                 # 1 if you don't care about this, 10 if you really do
+                        # min_rank_evictions = min_rank_evictions,                  # 1 if you don't care about this, 10 if you really do
                         close_to_bike_parking = close_to_bike_parking,           # Care about close bike parking, Yes or No
-                        density_of_offstreet_parking = density_of_offstreet_parking # Low, Medium, High Density within Xkm (Select Low if you don't care)))
+                        density_of_offstreet_parking = density_of_offstreet_parking, # Low, Medium, High Density within Xkm (Select Low if you don't care)))
+                        density_of_trees = density_of_trees
                     )
 
 

@@ -4,6 +4,9 @@ def check_rentals(results,
                     #schools_k9_ranking,               # Input Dictionary in form {zipcode: Rank}
                     #schools_hs_ranking,              # Input Dictionary in form {zipcode: Rank}
                     bike_parking,
+                    school_locations,
+                    tree_locations,
+                    parking,
 
 
                     max_rent= None,
@@ -18,7 +21,7 @@ def check_rentals(results,
                     distance_to_bike_share = "Short",        # Short, Medium, Long (Select Long if you don't care)
                     density_of_offstreet_parking = "Low", # Low, Medium, High Density within Xkm (Select Low if you don't care)
                     density_of_SFPD_Incidents = "High",       # Low, Medium, High Density in 2016 (Select High if you don't care)
-                    density_of_trees_100m = "Low"):          # Low, Medium, High Density within 500m (Select Low if you don't care):
+                    density_of_trees = "Low"):          # Low, Medium, High Density within 500m (Select Low if you don't care):
 
     '''Script used to filter all craigslist rentals according to user preferences.
 
@@ -134,20 +137,46 @@ def check_rentals(results,
         ## DENSITY STYLE FILTERS
         #----------------------------------
 
+        # SCHOOL DENSITY (School window set @ 10km)
+        if density_of_schools == "Low":
+            pass #skip this filter, user doesn't care
+        else:
+            School_Density, School_Count = filtering_functions.school_density(geotag,school_locations)
+            if (School_Density == "High School Density") and density_of_schools == "High":
+                result["School_Density"], result["School_Count"] = filtering_functions.school_density(geotag,school_locations)
+            elif (School_Density in ("High School Density","Medium School Density") \
+                and density_of_schools == "Medium":
+                result["School_Density"], result["School_Count"] = filtering_functions.school_density(geotag,school_locations)
+            else:
+                continue #doesn't meet user criteria, go on to next result
+
+        # TREE DENSITY (Tree window set @ 10km)
+        if density_of_trees == "Low":
+            pass #skip this filter, user doesn't care
+        else:
+            tree_density, tree_count = filtering_functions.tree_density(geotag,tree_locations)
+            if (tree_density == "High Tree Density") and density_of_trees == "High":
+                result["tree_density"], result["tree_count"] = filtering_functions.tree_density(geotag,tree_locations)
+            elif (tree_density in ("High Tree Density","Medium Tree Density") \
+                and density_of_trees == "Medium":
+                result["tree_density"], result["tree_count"] = filtering_functions.tree_density(geotag,tree_locations)
+            else:
+                continue #doesn't meet user criteria, go on to next result
+
         # VEHICLE PARKING DENSITY (Initial Parking window set @ 20km, huge window until we get actual locations loaded)
         if density_of_offstreet_parking == "Low":
             pass #skip this filter, user doesn't care
         else:
             Public_Parking_Density, Public_Parking_Spots, Private_Parking_Density, \
-                Private_Parking_Spots = filtering_functions.parking_density(geotag,off_street_parking)
+                Private_Parking_Spots = filtering_functions.parking_density(geotag,parking)
             if (Public_Parking_Density == "High Public Parking Density" or Private_Parking_Density == "High Private Parking Density") and density_of_offstreet_parking == "High":
                 result["Public_Parking_Density"], result["Public_Parking_Spots"], result["Private_Parking_Density"], \
-                result["Private_Parking_Spots"] = filtering_functions.parking_density(geotag,off_street_parking)
+                result["Private_Parking_Spots"] = filtering_functions.parking_density(geotag,parking)
             elif (Public_Parking_Density in ("High Public Parking Density","Medium Public Parking Density") \
                 or Private_Parking_Density in ("High Private Parking Density","Medium Private Parking Density")) \
                 and density_of_offstreet_parking == "Medium":
                 result["Public_Parking_Density"], result["Public_Parking_Spots"], result["Private_Parking_Density"], \
-                result["Private_Parking_Spots"] = filtering_functions.parking_density(geotag,off_street_parking)
+                result["Private_Parking_Spots"] = filtering_functions.parking_density(geotag,parking)
             else:
                 continue #doesn't meet user criteria, go on to next result
 
@@ -160,18 +189,18 @@ def check_rentals(results,
         tentative_rental = [] # reset the tentative rental, continue loop
 
         ################################################################################################
-        ### DISPLAY VALID RESULTS
-        #printmd('**-------------------VALID RESULT------------------**')
-        print("****************VALID RESULT************")
-        print("Area: ", result["area"], "\n",
-              "Price: ", result["price"], "\n",
-              "Listing Name: ", result["name"], "\n",
-              "URL: ", result["url"], "\n",
-              "Bike Parking (Close?, Location Name, Distance (km)): ",result["BP_close"], result["BP_location"], result["BP_distance"], "\n")
-            #   "Local Public Off-Street Parking Density, # of Spots: ", result["Public_Parking_Density"], result["Public_Parking_Spots"], "\n",
-            #   "Local Private Off-Street Parking Density, # of Spots: ",result["Private_Parking_Density"], result["Private_Parking_Spots"])
-        print("****************************************")
-        #printmd('**-------------------------------------------------**')
+        # ### DISPLAY VALID RESULTS
+        # #printmd('**-------------------VALID RESULT------------------**')
+        # print("****************VALID RESULT************")
+        # print("Area: ", result["area"], "\n",
+        #       "Price: ", result["price"], "\n",
+        #       "Listing Name: ", result["name"], "\n",
+        #       "URL: ", result["url"], "\n",
+        #       "Bike Parking (Close?, Location Name, Distance (km)): ",result["BP_close"], result["BP_location"], result["BP_distance"], "\n")
+        #     #   "Local Public Off-Street Parking Density, # of Spots: ", result["Public_Parking_Density"], result["Public_Parking_Spots"], "\n",
+        #     #   "Local Private Off-Street Parking Density, # of Spots: ",result["Private_Parking_Density"], result["Private_Parking_Spots"])
+        # print("****************************************")
+        # #printmd('**-------------------------------------------------**')
 
         ### POST TO SLACK
         from slackclient import SlackClient
@@ -181,23 +210,47 @@ def check_rentals(results,
         SLACK_CHANNEL = evaluation_settings.SLACK_CHANNEL
 
         sc = SlackClient(SLACK_TOKEN)
-        desc = "Area: " + str(result["area"]) +  "\n" + \
-              "Price: " +  str(result["price"]) +  "\n" + \
-              "Listing Name: " +  str(result["name"]) +  "\n" + \
-              "URL: " +  str(result["url"]) +  "\n" + \
-              "Bike Parking (Close?, Location Name, Distance (km)): " + str(result["BP_close"]) +  str(result["BP_location"]) +  str(result["BP_distance"]) +  "\n" # + \
-            #   "Local Public Off-Street Parking Density, # of Spots: " +  result["Public_Parking_Density"] +  result["Public_Parking_Spots"] +  "\n" + \
-            #   "Local Private Off-Street Parking Density, # of Spots: " + result["Private_Parking_Density"] +  result["Private_Parking_Spots"]
+        # desc = "Area: " + str(result["area"]) +  "\n" + \
+        #       "Price: " +  str(result["price"]) +  "\n" + \
+        #       "Listing Name: " +  str(result["name"]) +  "\n" + \
+        #       "URL: " +  str(result["url"]) +  "\n" + \
+        #       "Bike Parking (Close?, Location Name, Distance (km)): " + str(result["BP_close"]) +  str(result["BP_location"]) +  str(result["BP_distance"]) +  "\n" # + \
+        #     #   "Local Public Off-Street Parking Density, # of Spots: " +  result["Public_Parking_Density"] +  result["Public_Parking_Spots"] +  "\n" + \
+        #     #   "Local Private Off-Street Parking Density, # of Spots: " + result["Private_Parking_Density"] +  result["Private_Parking_Spots"]
 
         desc= "************************HERE IS A LISTING THAT MEETS YOUR CRITERIA********************* \n \
-        Area: {0} km \n \
+        Area: {0} \n \
         Price: {1} \n \
         Listing Name: {2} \n \
         URL: <{3}> \n \
         Bike Parking Close? {4} \n \
         Closest Bike Parking Location: {5} \n \
         Distance to Closest Bike Parking Location: {6} km \n \
-        ****************************************************************************************".format(result["area"],result["price"],result["name"],result["url"],result["BP_close"],result["BP_location"],round(result["BP_distance"],2))
+        Local School Density (10km Radius): {7} \n \
+        Local School Count (10km Radius): {8} \n \
+        Local Tree Density (1km Radius): {9} \n \
+        Local Tree Count (1km Radius): {10} \n \
+        Public Parking Density (1km Radius): {11} \n \
+        Public Parking # of Spots (1km Radius): {12} \n \
+        Private Parking Density (1km Radius): {13} \n \
+        Private Parking # of Spots (1km Radius): {14} \n \
+        ************************************************************************************************* \
+        ".format(result["area"],\
+        result["price"],\
+        result["name"],\
+        result["url"],\
+        result["BP_close"],\
+        result["BP_location"],\
+        round(result["BP_distance"],2),\
+        result["School_Density"],\
+        result["School_Count"],\
+        result["tree_density"],\
+        result["tree_count"],\
+        result["Public_Parking_Density"],\
+        result["Public_Parking_Spots"],\
+        result["Private_Parking_Density"],\
+        result["Private_Parking_Spots"]
+        )
 
         # desc = "{0} | {1} | {2} | {3} | <{4}>".format(result["area"], result["price"], result["name"], result["url"])
         sc.api_call(
