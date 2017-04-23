@@ -119,7 +119,6 @@ def check_rentals(results,
 
 
             # OF PARKS IN ZIPCODE
-            print(zipcode, type(zipcode))
             result['parks'] = parks_count[zipcode]
             result['parks_min'], result['parks_max'] = filtering_functions.min_in_zip(parks_count)
 
@@ -287,6 +286,7 @@ def check_rentals(results,
         Private Parking Density (1km Radius): {13} \n \
         Private Parking # of Spots (1km Radius): {14} \n \
         EXTRA INFORMATION \n \
+        Zipcode: {22} \n \
         # of Parks in Same Zipcode: {19} (Min:{20}, Max:{21}) \n \
         **************************************************************************************** \
         ".format(result["area"],
@@ -310,7 +310,8 @@ def check_rentals(results,
         round(result["BS_distance"],2),
         result["parks"],
         result['parks_min'],
-        result['parks_max']
+        result['parks_max'],
+        zipcode
         )
 
         # desc = "{0} | {1} | {2} | {3} | <{4}>".format(result["area"], result["price"], result["name"], result["url"])
