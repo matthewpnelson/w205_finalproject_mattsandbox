@@ -167,8 +167,8 @@ def school_density(geotag, school_locations):
 
     school_count = 0
     MAX_SCHOOL_DIST = 10 # kilometers
-    low_density_threshold = 2
-    med_density_threshold = 5
+    low_density_threshold = 1
+    med_density_threshold = 3
 
     # Loop through school Locations and sum total available spots (within Max Distance of geotag) for both Private/Public
     for name, coords in school_locations.items():
