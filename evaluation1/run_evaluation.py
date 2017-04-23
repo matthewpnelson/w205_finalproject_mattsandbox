@@ -106,7 +106,7 @@ def main(sc):
 
     #############################################################
     # Select TREES from Hive Table
-    trees_df = sqlContext.sql('SELECT tree_id, location FROM trees')
+    trees_table_df = sqlContext.sql('SELECT tree_id, location FROM trees')
     # convert to dictionary
     trees_dict = map(lambda row: row.asDict(), trees_table_df.collect())
     trees = {}
@@ -124,7 +124,7 @@ def main(sc):
 
     #############################################################
     # Select PARKING LOCATIONS from Hive Table
-    parking_df = sqlContext.sql('SELECT address, owner, reg_cap, location_1 FROM parking')
+    parking_table_df = sqlContext.sql('SELECT address, owner, reg_cap, location_1 FROM parking')
     # convert to dictionary
     parking_dict = map(lambda row: row.asDict(), parking_table_df.collect())
     parking = {}
