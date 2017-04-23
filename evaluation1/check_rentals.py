@@ -53,7 +53,7 @@ def check_rentals(results,
             geotag_raw = result['geotag']
             geotag = []
             for each in str(result['geotag'])[1:-1].strip().split(","):
-                geotag.append(int(each))
+                geotag.append(float(each))
             if len(geotag) != 2:
                 continue
         else:
