@@ -38,7 +38,7 @@ def main(sc):
 
     #############################################################
     # Select PARKS from Hive Table
-    parks_table_df = sqlContext.sql('SELECT zipcode, count(park_name) as numparks FROM parks GROUP BY park_name')
+    parks_table_df = sqlContext.sql('SELECT zipcode, count(park_name) as numparks FROM parks GROUP BY zipcode')
     # convert to dictionary
     parks_dict = map(lambda row: row.asDict(), parks_table_df.collect())
     parks = {each['zipcode']:each['numparks'] for each in parks_dict}
