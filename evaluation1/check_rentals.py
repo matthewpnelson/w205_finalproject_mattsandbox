@@ -131,30 +131,57 @@ def check_rentals(results,
 
 
             # OF PARKS IN ZIPCODE
-            result['parks'] = parks_count[result['zipcode']]
-            result['parks_min'], result['parks_max'] = filtering_functions.min_in_zip(parks_count)
+            try:
+                result['parks'] = parks_count[result['zipcode']]
+                result['parks_min'], result['parks_max'] = filtering_functions.min_in_zip(parks_count)
+            except:
+                result['parks'] = "No Info For that Zipcode"
+                result['parks_min'], result['parks_max'] = filtering_functions.min_in_zip(parks_count)
 
             # OF FIRES IN ZIPCODE
-            result['fires'] = parks_count[result['zipcode']]
-            result['fires_min'], result['fires_max'] = filtering_functions.min_in_zip(fires_count)
+            try:
+                result['fires'] = parks_count[result['zipcode']]
+                result['fires_min'], result['fires_max'] = filtering_functions.min_in_zip(fires_count)
+            except:
+                result['fires'] = "No Info For that Zipcode"
+                result['fires_min'], result['fires_max'] = filtering_functions.min_in_zip(fires_count)
 
             # OF BARS IN ZIPCODE
-            result['bars'] = parks_count[result['zipcode']]
-            result['bars_min'], result['bars_max'] = filtering_functions.min_in_zip(bars_count)
+            try:
+                result['bars'] = parks_count[result['zipcode']]
+                result['bars_min'], result['bars_max'] = filtering_functions.min_in_zip(bars_count)
+            except:
+                result['bars'] = "No Info For that Zipcode"
+                result['bars_min'], result['bars_max'] = filtering_functions.min_in_zip(bars_count)
 
             # OF RESTAURANTS IN ZIPCODE
-            result['restaurants'] = parks_count[result['zipcode']]
-            result['restaurants_min'], result['restaurants_max'] = filtering_functions.min_in_zip(restaurants_count)
+            try:
+                result['restaurants'] = parks_count[result['zipcode']]
+                result['restaurants_min'], result['restaurants_max'] = filtering_functions.min_in_zip(restaurants_count)
+            except:
+                result['restaurants'] = "No Info For that Zipcode"
+                result['restaurants_min'], result['restaurants_max'] = filtering_functions.min_in_zip(restaurants_count)
 
             # OF BUSINESSES IN ZIPCODE
-            result['businesses'] = parks_count[result['zipcode']]
-            result['businesses_min'], result['businesses_max'] = filtering_functions.min_in_zip(businesses_count)
-
+            try:
+                result['businesses'] = parks_count[result['zipcode']]
+                result['businesses_min'], result['businesses_max'] = filtering_functions.min_in_zip(businesses_count)
+            except:
+                result['businesses'] = "No Info For that Zipcode"
+                result['businesses_min'], result['businesses_max'] = filtering_functions.min_in_zip(businesses_count)
 
 
         else:
             result['parks'] = "Zipcode Not Identified"
             result['parks_min'], result['parks_max'] = filtering_functions.min_in_zip(parks_count)
+            result['fires'] = "Zipcode Not Identified"
+            result['fires_min'], result['fires_max'] = filtering_functions.min_in_zip(fires_count)
+            result['bars'] = "Zipcode Not Identified"
+            result['bars_min'], result['bars_max'] = filtering_functions.min_in_zip(bars_count)
+            result['restaurants'] = "Zipcode Not Identified"
+            result['restaurants_min'], result['restaurants_max'] = filtering_functions.min_in_zip(restaurants_count)
+            result['businesses'] = "Zipcode Not Identified"
+            result['businesses_min'], result['businesses_max'] = filtering_functions.min_in_zip(businesses_count)
         #-----------------------------------------------------------------------------------------------
         ## DISTANCE BASED FILTERS
         #-----------------------------------------------------------------------------------------------
