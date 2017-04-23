@@ -54,23 +54,32 @@ def main(sc):
     fires = {each['zipcode']:each['numfires'] for each in fires_dict}
 
     # Select Local Bars from Hive Table
-    bars_table_df = sqlContext.sql('SELECT zipcode, count(dba_name) as numbars from businesses WHERE dba_name \
-    LIKE "%Bar %" GROUP BY zipcode')
+    bars_table_df = sqlContext.sql('SELECT source_zipcode, count(dba_name) as numbars from businesses WHERE dba_name \
+    LIKE "%Bar %" GROUP BY source_zipcode')
     # convert to dictionary
     bars_dict = map(lambda row: row.asDict(), bars_table_df.collect())
-    bars = {each['zipcode']:each['numbars'] for each in bars_dict}
+    bars = {each['source_zipcode']:each['numbars'] for each in bars_dict}
 
     # Select Local Restaurants
-    restaurants_table_df = sqlContext.sql('SELECT zipcode, count(dba_name) as numrestaurants from businesses WHERE \
+    restaurants_table_df = sqlContext.sql('SELECT source_zipcode, count(dba_name) as numrestaurants from businesses WHERE \
     dba_name LIKE "%Restaurant %" OR \
     dba_name LIKE "%Kitchen %" OR \
     dba_name LIKE "%Grill %" OR \
-    dba_name LIKE "%Cuisine %" GROUP BY zipcode')
+    dba_name LIKE "%Cuisine %" GROUP BY source_zipcode')
     # convert to dictionary
     restaurants_dict = map(lambda row: row.asDict(), restaurants_table_df.collect())
-    restaurants = {each['zipcode']:each['numrestaurants'] for each in restaurants_dict}
+    restaurants = {each['source_zipcode']:each['numrestaurants'] for each in restaurants_dict}
 
-    # Select all Businesses
+    # Select all Businesses in zipcode
+    businesses_table_df = sqlContext.sql('SELECT source_zipcode, count(dba_name) as numbusinesses from businesses WHERE \
+    dba_name LIKE "%Restaurant %" OR \
+    dba_name LIKE "%Kitchen %" OR \
+    dba_name LIKE "%Grill %" OR \
+    dba_name LIKE "%Cuisine %" GROUP BY source_zipcode')
+    # convert to dictionary
+    businesses_dict = map(lambda row: row.asDict(), businesses_table_df.collect())
+    businesses = {each['source_zipcode']:each['numbusinesses'] for each in businesses_dict}
+
 
     #############################################################
     # Select BIKE PARKING from Hive Table
