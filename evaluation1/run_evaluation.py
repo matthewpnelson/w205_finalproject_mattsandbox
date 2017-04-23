@@ -3,14 +3,14 @@
 
 # inputs from user
 max_rent= 5000
-min_rent = 3000
-min_rank_businesses = 1                 # 1 if you don't care about this, 10 if you really do
-min_rank_evictions = 1                  # 1 if you don't care about this, 10 if you really do
-close_to_bike_parking = "Yes",          # Care about close bike parking, Yes or No
-close_to_bike_station = "Yes",           # Care about close bike station, Yes or No
+min_rent = 2000
+# min_rank_businesses = 1                 # 1 if you don't care about this, 10 if you really do
+# min_rank_evictions = 1                  # 1 if you don't care about this, 10 if you really do
+close_to_bike_parking = "Yes"          # Care about close bike parking, Yes or No
+close_to_bike_station = "Yes"           # Care about close bike station, Yes or No
 density_of_offstreet_parking = "Medium"
 density_of_trees = "Medium"
-density_of_schools = "Low", # SKIP FOR NOW, GEOTAG NOT IN HIVE TABLE?
+density_of_schools = "Low" # SKIP FOR NOW, GEOTAG NOT IN HIVE TABLE?
 density_of_SFPD_Incidents = "Medium"
 
 
