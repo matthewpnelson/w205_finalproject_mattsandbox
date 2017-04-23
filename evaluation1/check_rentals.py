@@ -116,7 +116,7 @@ def check_rentals(results,
         ## OTHER INFORMATION ON RENTAL
         #-----------------------------------------------------------------------------------------------
         # OF PARKS IN ZIPCODE
-
+        print(zipcode)
         result['parks'] = parks_count[zipcode]
 
 
