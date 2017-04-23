@@ -20,6 +20,16 @@ def check_businesses(min_rank, businesses_ranking_dict_by_zipcode):
         zips == None
     return zips
 
+def min_in_zip(zip_eval_dict):
+    minimum = None
+    maximum = None
+    for zipcode, count in zip_eval_dict.items():
+        if count < minimum or minimum = None:
+            minimum = count
+        if count > maximum or maximum = None:
+            maximum = count
+    return minimum, maximum
+
 def check_evictions(min_rank, evictions_ranking_dict_by_zipcode):
     zips = []
     for zipcode, rank in evictions_ranking_dict_by_zipcode.items():
