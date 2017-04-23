@@ -60,14 +60,14 @@ def check_rentals(results,
             continue #skip for now because there is no geotag
 
         # print(geotag)
-        result['zipcode'] = zip_lookup.zip_lookup_by_geotag(geotag)
+        result['zipcode'] = zip_lookup.zip_lookup_by_geotag(geotag_raw)
         tentative_rental.append(result)
 
         ### Get Approximate Neighbourhood by Geotag
         if result["location"] != None:
             result["area"] = result["location"]
         else:
-            result["area"] = neighbourhood_lookup.neighbourhood_lookup(geotag)
+            result["area"] = neighbourhood_lookup.neighbourhood_lookup(geotag_raw)
 
 
         ################################################################################################
